@@ -30,9 +30,9 @@
 		<input type="text" name="uid" 
 			placeholder="아이디 입력" /> <br/>
 		<input type="text" name="name" 
-			placeholder="아이디 입력" /> <br/>
+			placeholder="이름 입력" /> <br/>
 		<input type="number" name="age" 
-			placeholder="아이디 입력" /> <br/>
+			placeholder="나이 입력" /> <br/>
 		<input type="submit" value="전송하기" />
 	</form>
 	
