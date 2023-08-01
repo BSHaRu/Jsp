@@ -21,6 +21,7 @@
 	<h3>2.DBCP 실습</h3>
 	
 	<a href="/Ch06/user2/register.jsp">user2 CRUD 실습</a>
+	<a href="/Ch06/user3/user3/list.jsp">user3 Ajax</a>
 	
 </body>
 </html>
