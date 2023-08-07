@@ -1,29 +1,14 @@
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="dao.*"%>
+<%@page import="vo.*"%>
+<%@page import="java.sql.*"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-	String sql = "";
-	try{
-		Context init = new InitialContext();
-		DataSource ds 
-			= (DataSource) init.lookup("java:comp/env/jdbc/Jboard");
-		conn = ds.getConnection();
-		stmt = conn.createStatement();
-		sql = "SELECT * FROM terms";
-		rs = stmt.executeQuery(sql);
-		// rs 값은 아래에서 스크립틀릿으로 해결함
-	}catch(Exception e){
-		System.out.println(e.getMessage());
-	}
+	TermsVO terms 
+		= UserDAO.getInstance().selectTerms();
 %>    
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,12 +26,11 @@
        
         <main>
             <section class="terms">
-				<% if(rs.next()) {%>
                	<table border="1">
                     <caption>사이트 이용약관</caption>
                     <tr>
                         <td>
-                            <textarea class="textarea" readonly><%=rs.getString(1) %></textarea>
+                            <textarea class="textarea" readonly><%=terms.getTerms() %></textarea>
                             <p>
                                 <label>
                                     <input type="checkbox" name="chk1" />동의합니다.
@@ -59,7 +43,7 @@
                     <caption>개인정보 취급 방침</caption>
                     <tr>
                         <td>
-                            <textarea class="textarea" readonly><%=rs.getString(2) %></textarea>
+                            <textarea class="textarea" readonly><%=terms.getPrivacy() %></textarea>
                             <p>
                                 <label>
                                     <input type="checkbox" name="chk2" />동의합니다.
@@ -68,7 +52,6 @@
                         </td>
                     </tr>
                </table>
-               <%} %> <!-- if end -->
                <div>
                     <a href="#" class="btnCancle">취소</a>
                     <a href="#" class="btnNext">다음</a>
@@ -80,11 +63,7 @@
             <p>ⓒcopyright Haru.com</p>
         </footer>
     </div>
-    <%
-    	if(rs !=null) rs.close();
-    	if(stmt !=null) stmt.close();
-    	if(conn !=null) conn.close();
-    %>
+
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(function(){

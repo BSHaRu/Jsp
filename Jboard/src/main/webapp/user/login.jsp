@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+	String success = request.getParameter("success");
+
+%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +24,7 @@
 
         <main>
             <section class="login">
-                <form action="#" method="post">
+                <form action="/Jboard/user/loginProc.jsp" method="post">
                     <table>
                         <tr>
                             <td>
@@ -53,5 +59,16 @@
             <p>ⓒcopyright Haru.com</p>
         </footer>
     </div>
+	<script>
+		const success = <%= success %>;
+		if(success == 100){
+			// 로그인 실패
+			alert("로그인 실패");
+			
+		}else if (success == 101){
+			// 로그인 없이 list page 보려는 경우
+			alert("로그인부터 해주시기 바랍니다.");
+		}
+	</script>
 </body>
 </html>

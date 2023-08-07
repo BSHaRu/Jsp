@@ -1,22 +1,17 @@
+<%@page import="dao.UserDAO"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="vo.*, java.util.*, java.sql.*" %>
-<%-- 
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<jsp:useBean id="u" class="vo.UserVO" /> 
-<jsp:setProperty property="*" name ="u" /> 
---%>
   
 <%
 	request.setCharacterEncoding("UTF-8");
 	
 	String uid = request.getParameter("uid");
 	String pass1 = request.getParameter("pass1");
+	String pass2 = request.getParameter("pass2");
 	String name = request.getParameter("name");
 	String nick = request.getParameter("nick");
 	String email = request.getParameter("email");
@@ -27,44 +22,21 @@
 	String addr2 = request.getParameter("addr2");	
 	String regIp = request.getRemoteAddr();
 	
-	Context init = new InitialContext();
-	DataSource ds 
-		= (DataSource) init.lookup("java:comp/env/jdbc/Jboard");
-	Connection conn = ds.getConnection();
+	UserVO vo = new UserVO();
+	vo.setUid(uid);
+	vo.setPass(pass1);
+	vo.setName(name);
+	vo.setNick(nick);
+	vo.setEmail(email);
+	vo.setHp(hp);
+	vo.setRole(role);
+	vo.setZip(zip);
+	vo.setAddr1(addr1);
+	vo.setAddr2(addr2);
+	vo.setRegIp(regIp);
 	
-	PreparedStatement psmt = null;
-	String sql ="";
-	try{
-		sql = "INSERT INTO User SET "
-				+ " uid = ?,"
-				+ " pass = ?,"
-				+ " name = ?,"
-				+ " nick = ?,"
-				+ " email = ?,"
-				+ " hp = ?,"
-				+ " zip = ?,"
-				+ " addr1 = ?,"
-				+ " addr2 = ?,"
-				+ " regIp = ?,"
-				+ " regDate = NOW()";
-		psmt = conn.prepareStatement(sql);
-		psmt.setString(1, uid);
-		psmt.setString(2, pass1);
-		psmt.setString(3, name);
-		psmt.setString(4, nick);
-		psmt.setString(5, email);
-		psmt.setString(6, hp);
-		psmt.setString(7, zip);
-		psmt.setString(8, addr1);
-		psmt.setString(9, addr2);
-		psmt.setString(10, regIp);
-		
-		psmt.executeUpdate();
-
-		psmt.close();
-		conn.close();
-	}catch(Exception e){
-		System.out.println(e.getMessage());
-	}
+	UserDAO.getInstance().insertUser(vo);
+	
+	
 	response.sendRedirect("/Jboard/user/login.jsp");
 %>
