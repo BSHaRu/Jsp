@@ -33,12 +33,14 @@ public class ArticleDAO extends DBCP {
 	}
 	
 	
-	public List<ArticleVO> selectArticles() throws SQLException {
+	public List<ArticleVO> selectArticles(int start, int pageCount) throws SQLException {
 		List<ArticleVO> list = new ArrayList<>();
 		
 		try {
 			conn = getConnection();
 			psmt = conn.prepareStatement(SQL.SELECT_ARTICLES);
+			psmt.setInt(1, start);
+			psmt.setInt(2, pageCount);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
@@ -54,6 +56,8 @@ public class ArticleDAO extends DBCP {
 				vo.setWriter(rs.getString(9));
 				vo.setRegIp(rs.getString(10));
 				vo.setRegDate(rs.getDate(11));
+				// join
+				vo.setNick(rs.getString(12));
 				
 				list.add(vo);
 			}
@@ -64,6 +68,26 @@ public class ArticleDAO extends DBCP {
 		}
 		return list;
 	}
+	
+	public int selectCountTotal() throws SQLException {
+		int total = 0;
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_ARTICLE);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				total = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			close();
+		}
+		
+		return total;
+	}
+	
 	public void updateArticle(ArticleVO vo) {
 		
 	}

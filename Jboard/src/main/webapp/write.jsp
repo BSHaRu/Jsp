@@ -7,7 +7,7 @@
         <h3>글쓰기</h3>
         <article>
             <form action="/Jboard/proc/writerProc.jsp" method="post">
-            	<input type="hidden" name ="writer" readonly value="<%=sessUser.getUid() %>" />
+            	<input type="hidden" name ="writer" value="<%=sessUser.getUid() %>" />
                 <table>
                     <tr>
                         <td>제목</td>

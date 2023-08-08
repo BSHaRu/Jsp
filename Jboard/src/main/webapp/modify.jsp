@@ -29,7 +29,7 @@
                 </table>
                 <div>
                     <a href="#" class="btnCancel">취소</a>
-                    <input type="submit" class="btnWrite" value="수정완료">
+                    <input type="submit" class="btnWrite" value="수정완료" />
                 </div>
             </form>
         </article>

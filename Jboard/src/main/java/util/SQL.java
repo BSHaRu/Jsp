@@ -47,5 +47,14 @@ public class SQL {
 			+ " regDate = NOW()";
 
 	public static final String SELECT_ARTICLES 
-		= "SELECT * FROM Article ORDER BY no DESC";
+		= "SELECT "
+			+ "	a.*,"
+			+ "	u.nick "
+			+ " FROM `Article` AS a "
+			+ " JOIN `User` AS u ON a.writer = u.uid "
+			+ " ORDER BY no DESC"
+			+ " LIMIT ?, ?";
+
+	public static final String SELECT_COUNT_ARTICLE 
+		= "SELECT COUNT(*) FROM Article";
 }

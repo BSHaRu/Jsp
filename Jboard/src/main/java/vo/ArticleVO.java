@@ -15,6 +15,17 @@ public class ArticleVO {
 	private String regIp;
 	private Date regDate;
 	
+	// 추가 필드(JOIN)
+	private String nick;
+	
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
+	
 	public int getNo() {
 		return no;
 	}
