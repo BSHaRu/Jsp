@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/inc/header.jsp" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String strNo = request.getParameter("no");
+	int no = Integer.parseInt(strNo);
+	
+	ArticleDAO dao = new ArticleDAO();
+	
+	// 게시판 글 조회
+	ArticleVO vo = dao.selectArticle(no);
+	
+	// 댓글 조회(목록 확인)
+	List<ArticleVO> comments = dao.selectComments(no);
+	
+%>
 <main>
     <section class="view">
         <h3>글보기</h3>
@@ -8,9 +22,10 @@
             <tr>
                 <td>제목</td>
                 <td>
-               		<input type="text" name="title" value="제목입니다." readonly/>
+               		<input type="text" name="title" value="<%= vo.getTitle() %>" readonly/>
                 </td>
             </tr>
+            <% if(vo.getFile() > 0){ %>
             <tr>
                 <td>첨부파일</td>
                 <td>
@@ -18,43 +33,53 @@
                     <span>7회 다운로드</span>
                 </td>
             </tr>
+            <% } %>
             <tr>
                 <td>내용</td>
                 <td>
-                    <textarea class="textarea" name="content" readonly>내용 샘플입니다.</textarea>
+                    <textarea class="textarea" name="content" readonly><%= vo.getContent() %></textarea>
                 </td>
             </tr>
         </table>
         <div>
             <a href="#" class="btnDelete">삭제</a>
             <a href="#" class="btnModify">수정</a>
-            <a href="#" class="btnList">목록</a>
+            <a href="/Jboard/list.jsp" class="btnList">목록</a>
         </div>  
         
         <!-- 댓글리스트 -->
         <section class="commentList">
             <h3>댓글목록</h3>
+            <% for(ArticleVO content : comments){ %>
             <article class="comment">
                 <span>
-                    <span>길동이</span>
-                    <span>20-05-13</span>
+                    <span><%= content.getNick() %></span>
+                    <span><%= content.getRegDate() %></span>
                 </span>
-                <textarea class="textarea" name="comment" readonly>댓글 샘플입니다.</textarea>
+                <textarea class="textarea" name="comment" readonly><%= content.getContent() %></textarea>
+                <% if(sessUser.getUid().equals(content.getWriter())){ %>
                 <div>
-                    <a href="#">삭제</a>
-                    <a href="#">수정</a>
+                    <a href="/Jboard/proc/contentDelete.jsp?no=<%= content.getNo() %>&parent=<%= content.getParent() %>" class="del">삭제</a>
+                    <a href="#" class="modify">수정</a>
                 </div>
+                <%} %> <!-- sessUser if end -->
             </article>
+            <%} %> <!-- content for end -->
+            
+            <%if(comments.isEmpty()){ %>
             <p class="empty">
                 등록된 댓글이 없습니다.
             </p>
+            <%} %>
         </section> <!-- commentList end -->
 
         <!-- 댓글입력폼 -->
         <section class="commentForm">
             <h3>댓글쓰기</h3>
-            <form action="#">
-                <textarea class="textarea" name="comment"></textarea>
+            <form action="/Jboard/proc/commentProc.jsp" method="post">
+            	<input type="hidden" name="parent" value="<%= no %>"/>
+            	<input type="hidden" name="writer" value="<%= sessUser.getUid() %>" />
+                <textarea class="textarea" name="content"></textarea>
                 <div>
                     <a href="#" class="btnCancel">취소</a>
                     <input type="submit" class="btnWrite" value="작성완료"/>
@@ -66,3 +91,14 @@
 </main>
 
 <%@ include file="/inc/footer.jsp" %>
+<script>
+	$(function(){
+		$('.del').click(function(){
+			const reuslt = confirm("정말 삭제 하시겠습니까?");
+			if(result) 
+				return true;
+			else
+				return false;
+		});
+	});
+</script>

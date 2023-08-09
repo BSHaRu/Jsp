@@ -37,6 +37,7 @@ public class SQL {
 	public static final String SELECT_TERMS 
 		= "SELECT * FROM Terms";
 	
+	
 	// Article
 	public static final String INSERT_ARTICLE
 		= "INSERT INTO Article SET "
@@ -45,16 +46,56 @@ public class SQL {
 			+ " writer = ? ,"
 			+ " regIP = ? ,"
 			+ " regDate = NOW()";
+	
+	public static final String INSERT_CONTENT 
+		= "INSERT INTO Article SET "
+			+ " parent = ? ,"
+			+ " content = ? ,"
+			+ " writer = ? ,"
+			+ " regIP = ? ,"
+			+ " regDate = NOW()";
 
+	// select
 	public static final String SELECT_ARTICLES 
 		= "SELECT "
 			+ "	a.*,"
 			+ "	u.nick "
 			+ " FROM `Article` AS a "
 			+ " JOIN `User` AS u ON a.writer = u.uid "
+			+ " WHERE parent = 0 "
 			+ " ORDER BY no DESC"
 			+ " LIMIT ?, ?";
 
 	public static final String SELECT_COUNT_ARTICLE 
-		= "SELECT COUNT(*) FROM Article";
+		= "SELECT COUNT(no) FROM `Article` "
+				+ " WHERE parent = 0";
+		// parent 0을 안달면 댓글도 갯수로 쳐서 no가 꼬임
+
+	public static final String SELECT_ARTICEL 
+		= "SELECT * FROM `Article` WHERE no = ?";
+
+	public static final String SELECT_COMMENTS 
+		= "SELECT "
+			+ "	a.*,"
+			+ "	u.nick "
+			+ " FROM `Article` AS a "
+			+ " JOIN `User` AS u ON a.writer = u.uid "
+			+ " WHERE parent = ?";
+	
+	// Updaete
+	public static final String UPDATE_COMMENT_COUNT_PLUS
+		= "UPDATE `Article` SET "
+				+ " `comment` = `comment` + 1 "
+				+ " WHERE `no` = ?";
+	
+	public static final String UPDATE_COMMENT_COUNT_MIN 
+	= "UPDATE `Article` SET "
+			+ " `comment` = `comment` - 1 "
+			+ " WHERE `no` = ?";
+
+	// delete
+	public static final String DELETE_CONTENT 
+		= "DELETE FROM Article "
+				+ " WHERE no = ? ";
+
 }

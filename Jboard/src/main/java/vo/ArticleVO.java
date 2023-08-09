@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class ArticleVO {
 	private int no;
-	private int parent;
-	private int comment; // 댓글 개수를 의미해서 int임
+	private int parent;		// 부모 글 번호(no를 가르키는거임) -> 어느 글의 댓글인지 알려주는 역할
+	private int comment; 	// 댓글 개수를 의미해서 int임
 	private String cate;
 	private String title;
-	private String content;
+	private String content; // 댓글
 	private int file;
 	private int hit;
 	private String writer;

@@ -82,7 +82,8 @@
                 	-->
                     <td><%=pageStartNum-- %></td>
                     <td>
-                        <a href="#"><%=article.getTitle() %></a>
+                    	<!-- 특정 글을 읽기 위해서는 pk값으로 조회를 해야함 -->
+                        <a href="/Jboard/view.jsp?no=<%=article.getNo() %>"><%=article.getTitle() %></a>
                         &nbsp;[<%=article.getComment() %>]
                     </td>
                     <!-- Writer -> nick으로 변경(Join통해서 추가) -->
