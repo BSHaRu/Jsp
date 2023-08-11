@@ -56,6 +56,7 @@ public class SQL {
 			+ " regDate = NOW()";
 
 	// select
+	// PageMaker - 게시글 페이지 조회
 	public static final String SELECT_ARTICLES 
 		= "SELECT "
 			+ "	a.*,"
@@ -71,6 +72,7 @@ public class SQL {
 				+ " WHERE parent = 0";
 		// parent 0을 안달면 댓글도 갯수로 쳐서 no가 꼬임
 
+	// 
 	public static final String SELECT_ARTICEL 
 		= "SELECT * FROM `Article` WHERE no = ?";
 
@@ -93,9 +95,27 @@ public class SQL {
 			+ " `comment` = `comment` - 1 "
 			+ " WHERE `no` = ?";
 
+	// 게시글 수정 업데이트
+	public static final String UPDATE_ARTICLE 
+		= "UPDATE Article SET "
+				+ " title = ?, "
+				+ " content = ? "
+				//+ " file = ? "
+				+ " WHERE no = ?";
+
 	// delete
+	// 댓글 삭제
 	public static final String DELETE_CONTENT 
 		= "DELETE FROM Article "
 				+ " WHERE no = ? ";
+
+	// 게시판 삭제
+	public static final String DELETE_ARTICLE 
+		= "DELETE FROM Article "
+			+ " WHERE no = ? "
+			+ " OR parent = ?";
+	// parent를 받는 이유가 게시글 삭제시
+	// 해당 게시글에 있는 댓글도 삭제해주기 위해서임
+
 
 }

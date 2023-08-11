@@ -46,7 +46,7 @@ public class ArticleDAO extends DBCP {
 		}
 	}
 	
-	
+	// 
 	public ArticleVO selectArticle(int no) throws SQLException {
 		ArticleVO vo = null;
 		
@@ -174,8 +174,24 @@ public class ArticleDAO extends DBCP {
 		return list;
 	}
 	
-	public void updateArticle(ArticleVO vo) {
+	// 게시글 수정 업데이트
+	public void updateArticle(ArticleVO vo) throws SQLException {
 		
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2, vo.getContent());
+			//psmt.setInt(3, vo.getFile());
+			psmt.setInt(3, vo.getNo());
+			
+			psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			close();
+		}
 	}
 	
 	// 댓글 개수 표시 +
@@ -214,13 +230,26 @@ public class ArticleDAO extends DBCP {
 			psmt.setInt(1, no);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL 문제 : " + e.getMessage());
+			System.out.println("deleteContent : " + e.getMessage());
 		}finally {
 			close();
 		}
 	}
 	
-	public void deleteArticle(int no) {
-		
+	// 게시글 삭제
+	public void deleteArticle(int no) throws SQLException {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.DELETE_ARTICLE);
+			psmt.setInt(1, no);
+			// 댓글이 있으면 댓글 번호(parent)는
+			// 결국 게시글 no를 따라가니깐 2번째 쿼리도 no가 됨
+			psmt.setInt(2, no);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("deleteArticle : " + e.getMessage());
+		}finally {
+			close();
+		}
 	}
 }

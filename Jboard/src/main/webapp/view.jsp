@@ -42,8 +42,10 @@
             </tr>
         </table>
         <div>
-            <a href="#" class="btnDelete">삭제</a>
-            <a href="#" class="btnModify">수정</a>
+        	<%if(sessUser.getUid().equals(vo.getWriter())){ %>
+            <a href="/Jboard/delete.jsp?no=<%= no %>" class="btnDelete">삭제</a>
+            <a href="/Jboard/modify.jsp?no=<%= no %>" class="btnModify">수정</a>
+            <%} %>
             <a href="/Jboard/list.jsp" class="btnList">목록</a>
         </div>  
         
@@ -52,17 +54,20 @@
             <h3>댓글목록</h3>
             <% for(ArticleVO content : comments){ %>
             <article class="comment">
-                <span>
-                    <span><%= content.getNick() %></span>
-                    <span><%= content.getRegDate() %></span>
-                </span>
-                <textarea class="textarea" name="comment" readonly><%= content.getContent() %></textarea>
-                <% if(sessUser.getUid().equals(content.getWriter())){ %>
-                <div>
-                    <a href="/Jboard/proc/contentDelete.jsp?no=<%= content.getNo() %>&parent=<%= content.getParent() %>" class="del">삭제</a>
-                    <a href="#" class="modify">수정</a>
-                </div>
-                <%} %> <!-- sessUser if end -->
+            	<form action="/Jboard/proc/contentUpdate.jsp" method="post">
+	                <span>
+	                    <span><%= content.getNick() %></span>
+	                    <span><%= content.getRegDate() %></span>
+	                </span>
+	                <textarea class="textarea" name="comment" readonly><%= content.getContent() %></textarea>
+	                <% if(sessUser.getUid().equals(content.getWriter())){ %>
+	                <div>
+	                    <a href="/Jboard/proc/contentDelete.jsp?no=<%= content.getNo() %>&parent=<%= content.getParent() %>" class="del">삭제</a>
+	                    <a href="#" class="cancel">취소</a>
+	                    <a href="#" class="modify">수정</a>
+	                </div>
+	                <%} %> <!-- sessUser if end -->
+	            </form>
             </article>
             <%} %> <!-- content for end -->
             
@@ -82,6 +87,7 @@
                 <textarea class="textarea" name="content"></textarea>
                 <div>
                     <a href="#" class="btnCancel">취소</a>
+                    <input type="reset" class="btnWrite" value="reset버튼"/>
                     <input type="submit" class="btnWrite" value="작성완료"/>
                 </div>
             </form>
@@ -93,6 +99,37 @@
 <%@ include file="/inc/footer.jsp" %>
 <script>
 	$(function(){
+		// 댓글 수정
+		$('.modify').click(function(e){
+			e.preventDefault();
+			const txt = $(this).text();
+			if(txt == "수정"){
+				$(this).parent().prev().addClass('mod');
+				$(this).parent().prev().attr('readonly', false);
+				$(this).parent().prev().focus();
+				$(this).text("수정완료");
+				// 취소 버튼
+				$(this).prev().show();
+				// 삭제 버튼
+				$(this).prev().prev().hide();
+			}else{
+				//수정 데이터 전송
+				// this : 수정완료 버튼
+				// closest : 가장 근접한 태그
+				$(this).closest('form').submit();
+				
+				$(this).parent().prev().removeClass('mod');
+				$(this).parent().prev().attr('readonly', true);
+				
+				$(this).text("수정");
+				// 취소 버튼
+				$(this).prev().hide();
+				// 삭제 버튼
+				$(this).prev().prev().show();
+			}
+		});
+		
+		// 댓글 삭제
 		$('.del').click(function(){
 			const reuslt = confirm("정말 삭제 하시겠습니까?");
 			if(result) 
@@ -100,5 +137,25 @@
 			else
 				return false;
 		});
+		
+		// 댓글 쓰기 취소 - form태그 안이면 type= reset 해주면 됨
+		const commentContent 
+			= document.querySelector('form > textarea[name=content]');
+		const btnCancel = document.querySelector('.btnCancel');
+		btnCancel.onclick = function(e){
+			e.preventDefault();
+			commentContent.value = "";
+		}
+		
 	});
+	// 게시글 삭제
+	const btnDelete 
+		= document.getElementsByClassName('btnDelete')[0];
+	btnDelete.onclick = function(){
+		if(confirm("정말 삭제 하시겠습니까?")) 
+			return true;
+		else
+			return false;
+	};
+	
 </script>

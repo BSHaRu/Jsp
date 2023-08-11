@@ -383,15 +383,23 @@ main {
     padding-top: 10px;
 }
 
-.view > .commentList > article > .textarea {
+.view > .commentList > article .textarea {
     height: 60px;
     padding: 6px;
     box-sizing: border-box;
     border: 0;
     background: transparent;
 }
-.view > .commentList > article > div {
+.view > .commentList > article .textarea.mod {
+	border : 1px solid #bbb;
+	background: white;
+}
+.view > .commentList > article div {
     text-align: right;
+}
+
+.view > .commentList > article div > .cancel {
+	display: none;
 }
 
 .view > .commentList > .empty {
