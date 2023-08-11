@@ -55,6 +55,8 @@
             <% for(ArticleVO content : comments){ %>
             <article class="comment">
             	<form action="/Jboard/proc/contentUpdate.jsp" method="post">
+            		<input type="hidden" name="no" value=<%=content.getNo() %> />
+            		<input type="hidden" name="parent" value=<%=content.getParent() %> />
 	                <span>
 	                    <span><%= content.getNick() %></span>
 	                    <span><%= content.getRegDate() %></span>
@@ -127,6 +129,12 @@
 				// 삭제 버튼
 				$(this).prev().prev().show();
 			}
+		});
+		
+		// 댓글 수정 취소
+		$('.cancel').click(function(e){
+			e.preventDefault();
+			location.reload();
 		});
 		
 		// 댓글 삭제

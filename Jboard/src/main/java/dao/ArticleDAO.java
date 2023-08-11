@@ -222,6 +222,21 @@ public class ArticleDAO extends DBCP {
 		}
 	}
 	
+	// 댓글 수정
+	public void updateComment(String content, int no) throws SQLException {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareCall(SQL.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setInt(2, no);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateComment : " + e.getMessage());
+		}finally {
+			close();
+		}
+	}
+	
 	// 댓글 삭제
 	public void deleteContent(int no) throws SQLException {
 		conn = getConnection();

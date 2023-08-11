@@ -102,6 +102,12 @@ public class SQL {
 				+ " content = ? "
 				//+ " file = ? "
 				+ " WHERE no = ?";
+	
+	// 댓글 수정
+	public static final String UPDATE_COMMENT 
+		= "UPDATE Article SET "
+				+ "	content = ? "
+				+ " WHERE no = ?";
 
 	// delete
 	// 댓글 삭제
@@ -116,6 +122,7 @@ public class SQL {
 			+ " OR parent = ?";
 	// parent를 받는 이유가 게시글 삭제시
 	// 해당 게시글에 있는 댓글도 삭제해주기 위해서임
+
 
 
 }
