@@ -9,8 +9,8 @@ public class UserVO {
 	private String uNick; 
 	private String uName; 
 	private String uPhone; 
-	private String uEmail; 
-	private Date uDate; 
+	private String uEmail;
+	private String uDate; 
 	private String gender; 
 	private String uAddr1; 
 	private String uAddr2; 
@@ -63,10 +63,12 @@ public class UserVO {
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
-	public Date getuDate() {
+	public String getuDate() {
 		return uDate;
 	}
-	public void setuDate(Date uDate) {
+	public void setuDate(String uDate) {
+//		DateTimeFormatter dtf 
+//			= DateTimeFormatter.ofLocalizedDate(uDate);
 		this.uDate = uDate;
 	}
 	public String getGender() {

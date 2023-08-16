@@ -85,8 +85,8 @@
 		<tr>
 			<td>주소</td>
 			<td>
-				<input type="text" name="uAdder1" value="" placeholder="주소를 입력해주세요" />
-				<input type="text" name="uAdder2" value="" />
+				<input type="text" name="uAdder1" value="" />
+				<input type="text" name="uAdder2" value="" placeholder="주소를 입력해주세요" />
 				<input type="text" name="uAdder3" value="" placeholder="상세 주소를 입력해주세요" />
 				<span class="result"></span>
 			</td>
