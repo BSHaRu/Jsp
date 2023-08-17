@@ -70,7 +70,14 @@ $(function(){
 		if(!isEmailOk) return false;
 		// hp x
 		if(!isHpOk) return false;
-					
+		
+		/*console.log(!isUidOk);
+		console.log(!isPassOk);
+		console.log(!isNameOk);
+		console.log(!isNickOk);
+		console.log(!isEmailOk);
+		console.log(!isHpOk);*/
+		true;			
 		alert("회원가입 축하드립니다!");
 	});
 });
