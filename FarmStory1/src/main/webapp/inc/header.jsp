@@ -1,4 +1,4 @@
-<%@page import="dto.*, dao.*"%>
+<%@page import="dto.*, dao.*, util.*, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -27,7 +27,7 @@
                 <a href="/FarmStory1/user/login.jsp">로그인 |</a>
                 <a href="/FarmStory1/user/register.jsp">회원가입 |</a>
                 <% }else{ %>
-                	<% if(sessUser.getRole().equals("admin")){ %>
+                	<% if(sessUser.getRole().equals("ADMIN")){ %>
 	                <a href="/FarmStory1/admin/index.jsp">관리자 |</a>
 	                <% } %>
                 <a href="/FarmStory1/user/logout.jsp"> 로그아웃 |</a>
@@ -43,8 +43,8 @@
 	                	<img src="/FarmStory1/images/head_menu_badge.png" alt="30%"/>장보기
 	                </a>
                 </li>
-                <li><a href="/FarmStory1/croptalk/story.jsp">농작물이야기</a></li>
-                <li><a href="/FarmStory1/event/event.jsp">이벤트</a></li>
-                <li><a href="/FarmStory1/community/notice.jsp">커뮤니티</a></li>
+                <li><a href="/FarmStory1/board/list.jsp?group=croptalk&cate=story">농작물이야기</a></li>
+                <li><a href="/FarmStory1/board/list.jsp?group=event&cate=event">이벤트</a></li>
+                <li><a href="/FarmStory1/board/list.jsp?group=community&cate=notice">커뮤니티</a></li>
             </ul>
         </header>

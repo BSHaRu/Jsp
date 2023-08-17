@@ -30,7 +30,7 @@
         <div>
             <a href="#"><img src="/FarmStory1/images/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
             <img src="/FarmStory1/images/main_latest1_img.jpg" alt="이미지"/>
-            <table border="0">
+            <table>
                 <tr>
                     <td>></td>
                     <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
@@ -94,7 +94,7 @@
         <div>
             <a href="#"><img src="/FarmStory1/images/main_latest3_tit.png" alt="농작물 이야기"/></a>
             <img src="/FarmStory1/images/main_latest3_img.jpg" alt="이미지"/>
-            <table border="0">
+            <table>
                 <tr>
                     <td>></td>
                     <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>

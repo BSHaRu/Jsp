@@ -17,7 +17,7 @@
 		response.sendRedirect("/FarmStory1/index.jsp");
 	}else{
 		out.print("<script>");
-		out.print("alert('등록된 회원이 아니거나 비밀번호가 틀렸습니다.');");
+		out.print("alert('등록된 회원이 아니거나 비밀번호가 틀립니다.');");
 		out.print("history.back();");
 		out.print("</script>");
 	}
