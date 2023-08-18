@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/inc/header.jsp" %>
 <%
+	// 로그인 여부 확인
+	if(sessUser == null){
+		out.print("<script>");
+		out.print("alert('로그인 부터 해주세요');");
+		out.print("location.href='/FarmStory1/user/login.jsp';");
+		out.print("</script>");
+		return;
+	}
+
 	request.setCharacterEncoding("UTF-8");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");

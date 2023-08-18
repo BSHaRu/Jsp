@@ -8,7 +8,6 @@ public class SQL {
 
 	
 	// user
-
 	// 회원 가입
 	public static final String INSERT_USER 
 		= "INSERT INTO User SET "
@@ -46,7 +45,18 @@ public class SQL {
 				+ " regIp = ?, "
 				+ " regDate = NOW()";
 
-	// PageMaker
+	// 댓글 쓰기
+	public static final String INSERT_CONTENT 
+		= "INSERT INTO Article SET "
+				+ " cate = ?, "
+				+ " parent = ?, "
+				+ " content = ?, "
+				+ " writer = ?, "
+				+ " regIp = ?, "
+				+ " regDate = NOW()";
+	
+	
+	// PageMaker - 현재 페이지 게시물 조회
 	public static final String SELECT_PM 
 		= "SELECT a.*, u.nick "
 				+ " FROM Article AS a "
@@ -63,6 +73,37 @@ public class SQL {
 				+ " AND cate = ?";
 	// 게시판을 하나로 처리하다보니 cate로 구분해주기 위해서
 	// cate를 쿼리 값으로 받는거임
+
+
+	// 현재 게시글 보기
+	public static final String SELECT_ARTICLE 
+		= "SELECT * FROM `Article` "
+				+ " WHERE no = ?";
+
+	// 댓글 보기
+	public static final String SELECT_CONTENTS 
+		= "SELECT a.*, u.nick "
+				+ "	FROM Article AS a "
+				+ "	JOIN User AS u ON a.writer = u.uid "
+				+ "	WHERE parent = ?";
+
+	// 댓글 표시 ++ 
+	public static final String UPDATE_COMMENT_COUNT 
+		= "UPDATE";
+
+
+	// 댓글 수정
+	public static final String UPDATE_CONTENT 
+		= "UPDATE Article SET "
+				+ " content = ? "
+				+ " WHERE no = ?";
+
+	// 게시글 수정
+	public static final String UPDATE_Article 
+		= "UPDATE Article SET "
+			+ " title = ?, "
+			+ " content = ? "
+			+ " WHERE no = ?";
 	
 	
 	

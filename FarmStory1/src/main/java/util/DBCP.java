@@ -21,9 +21,9 @@ public class DBCP {
 				= (DataSource) init.lookup("java:comp/env/jdbc/Farmstory");
 			conn = ds.getConnection();
 		} catch (NamingException e) {
-			System.out.println("DBCP 에러");
+			System.out.println("DBCP 에러" + e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("DB 연결 에러");
+			System.out.println("DB 연결 에러" + e.getMessage());
 		}
 		return conn;
 	}
