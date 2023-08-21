@@ -17,4 +17,5 @@ public class TermsDTO {
 		this.privacy = privacy;
 	}	
 	
+	
 }

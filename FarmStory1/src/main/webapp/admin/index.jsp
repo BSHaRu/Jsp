@@ -1,33 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>팜스토리</title>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
-    <link rel="stylesheet" href="/FarmStory1/admin/css/style.css">
-</head>
-<body>
-    <div id="container">
-        <header>
-            <a href="/FarmStory1/admin/index.jsp" class="logo"><img src="/FarmStory1/admin/images/admin_logo.jpg" alt="로고"/></a>
-            <p>
-                <a href="/FarmStory1/index.jsp">HOME |</a>
-                <a href="#">로그아웃 |</a>
-                <a href="#">고객센터</a>
-            </p>
-        </header>
+<%@ include file="/inc/admin/header.jsp" %>
         <main>
-            <aside>
-                <h3>주요기능</h3>
-                <ul>
-                    <li><a href="/FarmStory1/admin/productList.jsp">상품관리</a></li>
-                    <li><a href="/FarmStory1/admin/orderList.jsp">주문관리</a></li>
-                    <li><a href="/FarmStory1/admin/userList.jsp">회원관리</a></li>                    
-                </ul>
-            </aside>
+            <%@ include file="/inc/admin/aside/admin_aside.jsp" %>
             <section>
                 <nav>
                     <h3>관리자 메인</h3>
@@ -38,7 +13,7 @@
                         <a href="#">상품현황</a>
                         <a href="#" class="more">+ 더보기</a>
                     </h3>
-                    <table border="0">
+                    <table>
                         <tr>
                             <th>상품번호</th>
                             <th>상품명</th>
@@ -79,7 +54,7 @@
                         <a href="#">주문현황</a>
                         <a href="#" class="more">+ 더보기</a>
                     </h3>
-                    <table border="0">
+                    <table>
                         <tr>
                             <th>주문번호</th>
                             <th>상품명</th>
@@ -128,7 +103,7 @@
                         <a href="#">회원현황</a>
                         <a href="#" class="more">+ 더보기</a>
                     </h3>
-                    <table border="0">
+                    <table>
                         <tr>
                             <th>회원아이디</th>
                             <th>이름</th>
@@ -169,14 +144,4 @@
                 </article>
             </section>
         </main>
-        <footer>            
-            <p>                
-                Copyright(C)Farmstory All rights reserved. FARMSTORY ADMINISTRATOR Version 1.0.1
-            </p>
-        </footer>
-    </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>    
-</body>
-</html>
+<%@ include file="/inc/admin/footer.jsp" %>

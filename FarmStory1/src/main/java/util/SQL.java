@@ -104,6 +104,24 @@ public class SQL {
 			+ " title = ?, "
 			+ " content = ? "
 			+ " WHERE no = ?";
+
+
+	// product
+	// 상품 등록
+	public static final String INSERT_PRODUCT 
+		= "INSERT INTO Product SET "
+				+ " type = ?, "
+				+ " pName = ?, "
+				+ " price = ?, "
+				+ " delivery = ?, "
+				+ " stock = ?, "
+				+ " sold = ?, "
+				+ " thumb1 = ?, "
+				+ " thumb2 = ?, "
+				+ " thumb3 = ?, "
+				+ " seller = ?, "
+				+ " etc = ?, "
+				+ " regDate = NOW()";
 	
 	
 	
