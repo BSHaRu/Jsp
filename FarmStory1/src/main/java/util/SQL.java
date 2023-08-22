@@ -29,9 +29,6 @@ public class SQL {
 				+ " WHERE uid =? "
 				+ " AND pass = SHA2(?,256)";
 
-
-	
-	
 	
 	
 	// artitcle
@@ -89,7 +86,7 @@ public class SQL {
 
 	// 댓글 표시 ++ 
 	public static final String UPDATE_COMMENT_COUNT 
-		= "UPDATE";
+		= "";
 
 
 	// 댓글 수정
@@ -122,6 +119,29 @@ public class SQL {
 				+ " seller = ?, "
 				+ " etc = ?, "
 				+ " regDate = NOW()";
+
+
+	// 상품 목록 보기
+	public static final String SELECT_PRODUCTS_ALL
+		= "SELECT * FROM Product "
+				+ " WHERE stock > 0 "
+				+ " ORDER BY pNo DESC"
+				+ " LIMIT ?, ? ";
+
+	// 상품 카테고리 별로 묶기
+	public static final String SELECT_PRODUCTS_TYPE
+		= "SELECT * FROM Product "
+				+ "	WHERE stock > 0 AND type = ? "
+				+ " ORDER BY pNo DESC"
+				+ " LIMIT ?, ? ";
+
+	// 상품 전체 개수
+	public static final String SELECT_COUNT_PROD_ALL 
+		= "SELECT COUNT(*) FROM Product "
+				+ " WHERE stock > 0";
+	public static final String SELECT_COUNT_PROD_TYPE 
+		= "SELECT COUNT(*) FROM Product "
+			+ " WHERE stock > 0 AND type = ? ";
 	
 	
 	

@@ -36,9 +36,9 @@
 	dto.setPrice(price);
 	dto.setDelivery(delivery);
 	dto.setStock(stock);
-	dto.setThumb1(thumb1);
-	dto.setThumb2(thumb2);
-	dto.setThumb3(thumb3);
+	dto.setThumb1ForReName(thumb1);
+	dto.setThumb2ForReName(thumb2);
+	dto.setThumb3ForReName(thumb3);
 	dto.setSeller(seller);
 	dto.setEtc(etc);
 	

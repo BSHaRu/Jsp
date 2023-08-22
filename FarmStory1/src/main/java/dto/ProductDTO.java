@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,6 +23,8 @@ public class ProductDTO {
 	
 	// 파일 업로드 땜에 추가함
 	private String path;
+	
+	public ProductDTO() {}
 	
 	public ProductDTO(String path) {
 		this.path = path;
@@ -48,6 +51,12 @@ public class ProductDTO {
 	public int getPrice() {
 		return price;
 	}
+	// 가격을 3자리 포멧으로 출력
+	// ex)1,000 , 1,000,000 이런 식으로 가격 포멧 정하기
+	public String getPriceWithComma() {
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(price);
+	}
 	public void setPrice(int price) {
 		this.price = price;
 	}
@@ -73,6 +82,9 @@ public class ProductDTO {
 		return thumb1;
 	}
 	public void setThumb1(String thumb1) {
+		this.thumb1 = thumb1;
+	}
+	public void setThumb1ForReName(String thumb1) {
 		// uuid로 바꿔준 이름으로 저장해줌
 		this.thumb1 = fileRename(thumb1);
 	}
@@ -80,12 +92,18 @@ public class ProductDTO {
 		return thumb2;
 	}
 	public void setThumb2(String thumb2) {
+		this.thumb2 = thumb2;
+	}
+	public void setThumb2ForReName(String thumb2) {
 		this.thumb2 = fileRename(thumb2);
 	}
 	public String getThumb3() {
 		return thumb3;
 	}
 	public void setThumb3(String thumb3) {
+		this.thumb3 = thumb3;
+	}
+	public void setThumb3ForReName(String thumb3) {
 		this.thumb3 = fileRename(thumb3);
 	}
 	public String getSeller() {

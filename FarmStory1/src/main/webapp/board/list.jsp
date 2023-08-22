@@ -18,7 +18,7 @@
 	
 	// PM
 	ArticleDAO dao = new ArticleDAO();
-	// 페이지 관련 변수
+	//페이지 관련 변수
 	int currentPage = 1;
 	int pageCount = 5; // 한 page에 보여줄 게시물 수
 	int start = 0;	// pageCount만큼 검색할 시작 index번호
