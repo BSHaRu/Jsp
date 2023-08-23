@@ -44,10 +44,10 @@
                             <tr>
                                 <td>배송비</td>
                                 <td>
+                                	<!-- 이거 스타일 왜 안먹지? -->
+                                    <em style="text-align: left">3만원 이상 무료배송</em>
                                 	<% if(dto.getDelivery() > 0){ %>
-                                    <span><%= dto.getDelivery() %></span>원
-                                    <% } else{ %>
-                                    <em>5만원 이상 무료배송</em>
+                                    <span class="delivery"></span>원
                                     <% } %>
                                 </td>
                             </tr>
@@ -127,19 +127,34 @@
 <%@ include file="/inc/footer.jsp" %>
 <script>
 	const price = <%= dto.getPrice() %>;
-	const delivery = <%=dto.getDelivery() %>;
+	let delivery = <%=dto.getDelivery() %>;
+	
 	$(function(){
+		// 3만원 이상 배송비 무료
+		if(price >= 30000) delivery = 0;
+		
 		// 여기에 이렇게 선언 해줘야 처음 로딩 할 경우 배송비 포함된 가격을 보여줌
 		$('.total').text((price + delivery).toLocaleString()+"원");
+		$('.delivery').text(delivery);
+		
+		// 수량 조절 안했을 때 hidden으로 total 넘기기
+		$('input[name=total]').val((price+delivery).toLocaleString());
 		
 		$('input[name=count]').change(function(){
 			console.log("input count change");
 			
 			let count = $(this).val();
-			console.log("count : " + count);
+			
+			if(price * count >= 30000){
+				delivery = 0;
+				$('.delivery').text(delivery);
+			}else{
+				delivery = <%=dto.getDelivery() %>;
+				$('.delivery').text(delivery);
+			}
+			$('input[name=delivery]').val(delivery);
 			
 			let total = price * count + delivery;
-			console.log("total : " + total);
 			
 			// hidden으로 count 넘길 때 필요한 로직
 			$('input[name=count]').val(count);

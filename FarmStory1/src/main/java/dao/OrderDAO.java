@@ -7,6 +7,7 @@ import util.*;
 
 public class OrderDAO extends DBCP{
 
+	// 주문 성공 때 DB 저장
 	public void insertOrder(OrderDTO dto) {
 		conn = getConnection();
 		try {
