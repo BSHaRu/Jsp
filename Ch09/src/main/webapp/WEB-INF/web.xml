@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Ch09</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- servlet 등록 -->
+  <servlet>
+  	<servlet-name>HelloServlet</servlet-name>
+  	<!-- 패키지명.class명 -->
+  	<servlet-class>sub1.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HelloServlet</servlet-name>
+  	<url-pattern>/hello.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>WelcomeServlet</servlet-name>
+  	<servlet-class>sub1.WelcomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>WelcomeServlet</servlet-name>
+  	<url-pattern>/welcome.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- filter 등록 -->
+  <filter>
+  	<filter-name>FilterA</filter-name>
+  	<filter-class>sub2.FilterA</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>FilterA</filter-name>
+  	 <!-- 특정 url에만 지정할꺼면 그 값을 넣어도 되지만, 지금은 모두 적용시킨거임 -->
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>FilterB</filter-name>
+  	<filter-class>sub2.FilterB</filter-class>
+  	<!-- <init-param> 이 내용은 수업 안함
+  		filter가 init 할때 인코딩을 UTF-8로 초기화 시켜서 실행 
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  	<init-param> 
+  		init-param은 여러개 지정해줄 수 있음
+  		<param-name>method</param-name>
+  		<param-value>GET</param-value>
+  	</init-param> -->
+  </filter>
+  <filter-mapping>
+  	<filter-name>FilterB</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- Listener 등록 -->
+  <listener>
+  	<listener-class>sub3.ContextListener</listener-class>
+  </listener>
+  
+</web-app>
