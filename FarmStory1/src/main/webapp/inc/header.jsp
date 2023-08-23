@@ -25,7 +25,7 @@
                 <a href="/FarmStory1/index.jsp">HOME |</a>
                 <% if(sessUser == null){ %>
                 <a href="/FarmStory1/user/login.jsp">로그인 |</a>
-                <a href="/FarmStory1/user/register.jsp">회원가입 |</a>
+                <a href="/FarmStory1/user/terms.jsp">회원가입 |</a>
                 <% }else{ %>
                 	<% if(sessUser.getRole().equals("ADMIN")){ %>
 	                <a href="/FarmStory1/admin/index.jsp">관리자 |</a>

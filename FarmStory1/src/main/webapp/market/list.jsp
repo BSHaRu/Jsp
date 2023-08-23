@@ -107,7 +107,7 @@
             <% for(ProductDTO product : products){ %>
                 <tr>
                     <td>
-                        <a href="/FarmStory1/market/view.jsp">
+                        <a href="/FarmStory1/market/view.jsp?pNo=<%=product.getpNo() %>">
                        		<img src="/FarmStory1/thumb/<%= product.getThumb1() %>" class="thumb" />
                         </a>
                     </td>

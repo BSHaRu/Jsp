@@ -142,6 +142,30 @@ public class SQL {
 	public static final String SELECT_COUNT_PROD_TYPE 
 		= "SELECT COUNT(*) FROM Product "
 			+ " WHERE stock > 0 AND type = ? ";
+
+	// 상품 상세 보기
+	public static final String SELECT_PRODUCT 
+		= "SELECT * FROM Product "
+				+ " WHERE pNo = ? ";
+
+
+	// Order
+	// 주문
+	public static final String INSERT_ORDER 
+		= "INSERT INTO `Order` SET "
+				+ " orderProduct = ?, "
+				+ " orderCount = ?, "
+				+ " orderDelivery = ?, "
+				+ " orderPrice = ?, "
+				+ " orderTotal = ?, "
+				+ " receiver = ?, "
+				+ " hp = ?, "
+				+ " zip = ?, "
+				+ " addr1 = ?, "
+				+ " addr2 = ?, "
+				+ " orderEtc = ?, "
+				+ " orderUser = ?, "
+				+ " orderDate = NOW()";
 	
 	
 	

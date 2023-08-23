@@ -34,10 +34,25 @@ public class ProductDAO extends DBCP{
 		}
 	}
 	
-	
+	// 상품 상세 보기
 	public ProductDTO selectProduct(int pNo) {
-		
-		return null;
+		ProductDTO dto = null;
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.SELECT_PRODUCT);
+			psmt.setInt(1, pNo);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new ProductDTO();
+				dto = getProduct(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println("selectProduct : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return dto;
 	}
 	
 	// 상품 목록 보기
