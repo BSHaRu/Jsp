@@ -56,11 +56,3 @@
 	</section>
 </div>
 <%@ include file="/inc/footer.jsp"%>
-<script>
-	$(function(){
-		$('.btnCancel').click(function(e){
-			e.preventDefault();
-			history.go(-1);
-		});
-	});
-</script>

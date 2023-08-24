@@ -1,10 +1,11 @@
 /**
  * 
  */
- $(function(){
+$(function(){
     $('.showPopup').click(function(e){
         e.preventDefault();
-        $('#orderPopup').show();
+        
+        popup.show();
     });
 
     $('#orderPopup .btnClose').click(function(){

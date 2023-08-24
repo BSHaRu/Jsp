@@ -526,7 +526,8 @@ main > .info > div > .account {
     border-bottom: 2px solid #e7e7e7;
 }
 
-#sub > .market > .view > .basic > table em {            
+#sub > .market > .view > .basic > table em {
+	float: left;            
     color: #777;
 }
 #sub > .market > .view > .basic > table .total {
@@ -1028,7 +1029,7 @@ input[type=number]::-webkit-outer-spin-button {
     background: #4b545e;
     color: #fff;
 }
-.btnCancel, .btnDelete, .btnModify, .btnList { 
+.btnCancel, .btnDelete, .btnModify, .btnList, .btnReset { 
     display: inline-block; 
     padding: 8px; 
     border: 1px solid #bebebe; 

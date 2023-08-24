@@ -231,6 +231,10 @@ footer > p {
     text-decoration: underline;
 }
 
+#orderList .hidden {
+	display: none;
+}
+
 #orderPopup {
     position: absolute;
     left: 0;

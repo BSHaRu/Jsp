@@ -18,6 +18,15 @@ public class OrderDTO {
 	private String orderUser;
 	private Date orderDate;
 	
+	// prod랑 join해서 추가
+	private String pName;
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
 	
 	public int getOrderNo() {
 		return orderNo;

@@ -49,6 +49,7 @@
 			            </td>
 			        </tr>
 			    </table>
+			    <!-- 게시판 삭제++ -->
 			    <div>
 			    <% if(dto.getWriter().equals(sessUser.getUid())) { %>
 			        <a href="#" class="btnDelete">삭제</a>
@@ -57,7 +58,7 @@
 			        <a href="list.jsp?group=<%= group %>&cate=<%= cate %>" class="btnList">목록</a>
 			    </div>  
 			    
-			    <!-- 댓글리스트 -->
+			    <!-- 댓글리스트++(댓글 카운트 작업, 수정, 삭제++) -->
 			    <section class="commentList">
 			        <h3>댓글목록</h3>
 			        <% for(ArticleDTO content : contents){ %>
@@ -98,7 +99,7 @@
 			        	<input type="hidden" name="group" value="<%= group %>" />
 			            <textarea class="textarea" name="content"></textarea>
 			            <div>
-			                <input type="reset" class="btnCancel" value="취소"/>
+			                <input type="reset" class="btnReset" value="취소"/>
 			                <input type="submit" class="btnWrite" value="작성완료"/>
 			            </div>
 			        </form>

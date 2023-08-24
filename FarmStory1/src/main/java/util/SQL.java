@@ -167,7 +167,24 @@ public class SQL {
 				+ " orderUser = ?, "
 				+ " orderDate = NOW()";
 	
+	// 주문 상품 목록 보기
+	public static final String ORDER_LIST
+		= "SELECT o.*, p.pName "
+				+ " FROM `Order` AS o "
+				+ " JOIN `Product` AS p "
+				+ " ON o.orderProduct = p.pNo"
+				+ " ORDER by orderNo DESC "
+				+ " LIMIT ?, ? ";
 	
+	// 주문 목록 전체 조회
+	public static final String SELECT_ORDER_COUNT 
+		= "SELECT COUNT(*) FROM `Order` ";
+	
+	// 주문 목록 삭제
+	public static final String DELETE_ORDER 
+		= "DELETE FROM `Order` WHERE orderNo = ?";
+
+
 	
 	
 }

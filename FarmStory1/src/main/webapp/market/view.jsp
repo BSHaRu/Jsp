@@ -44,10 +44,10 @@
                             <tr>
                                 <td>배송비</td>
                                 <td>
-                                	<!-- 이거 스타일 왜 안먹지? -->
-                                    <em style="text-align: left">3만원 이상 무료배송</em>
+                                	<!-- em만 왼쪽 정렬 하기 위해서 float left해줌 -->
+                                    <em>3만원 이상 무료배송</em>
                                 	<% if(dto.getDelivery() > 0){ %>
-                                    <span class="delivery"></span>원
+                                    <span class="del_price"></span>원
                                     <% } %>
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@
                         	<input type="hidden" name="thumb2" value="<%=dto.getThumb2() %>" />
                         	<input type="hidden" name="pName" value="<%=dto.getpName() %>" />
                         	<input type="hidden" name="pNo" value="<%=dto.getpNo() %>" />
-                        	<input type="hidden" name="delivery" value="<%=dto.getDelivery() %>" />
+                        	<input type="hidden" name="delivery" />
                         	<input type="hidden" name="price" value="<%=dto.getPrice() %>" />
                         	<input type="hidden" name="count" value="1" />
                         	<input type="hidden" name="total" />
@@ -135,11 +135,13 @@
 		
 		// 여기에 이렇게 선언 해줘야 처음 로딩 할 경우 배송비 포함된 가격을 보여줌
 		$('.total').text((price + delivery).toLocaleString()+"원");
-		$('.delivery').text(delivery);
+		$('.del_price').text(delivery);
 		
 		// 수량 조절 안했을 때 hidden으로 total 넘기기
 		$('input[name=total]').val((price+delivery).toLocaleString());
+		$('input[name=delivery]').val(delivery);
 		
+		// 수량 조절을 했을 때 가격 변동
 		$('input[name=count]').change(function(){
 			console.log("input count change");
 			
@@ -147,11 +149,10 @@
 			
 			if(price * count >= 30000){
 				delivery = 0;
-				$('.delivery').text(delivery);
 			}else{
 				delivery = <%=dto.getDelivery() %>;
-				$('.delivery').text(delivery);
 			}
+			$('.del_price').text(delivery);
 			$('input[name=delivery]').val(delivery);
 			
 			let total = price * count + delivery;

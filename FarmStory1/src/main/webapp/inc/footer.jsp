@@ -17,7 +17,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script>
-    
-    </script> 
+		$(function(){
+			$('.btnCancel').click(function(e){
+				e.preventDefault();
+				history.go(-1);
+			});
+		});
+	</script>
 </body>
 </html>
