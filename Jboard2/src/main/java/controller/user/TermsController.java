@@ -30,11 +30,4 @@ public class TermsController extends HttpServlet {
 			= request.getRequestDispatcher("/user/terms.jsp");
 		rd.forward(request, response);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest requset, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-	
 }
