@@ -4,15 +4,18 @@
 // 이메일 인증
 let receiveCode = 0;
 
+isEmailOk = false;
 $(function(){
 	$("#btnEmailCode").click(function(){
 		alert("이메일을 확인 후 코드를 입력해 주세요.");
+		const name = $('input[name=name]').val();
 		const email = $('input[name=email]').val();
 		
 		console.log("btnEmailCode click");
 		$("#btnEmailCode").attr('disabled', true);
 		
 		const jsonData = {
+			"name" : name,
 			"email" : email
 		};
 		
@@ -35,6 +38,7 @@ $(function(){
 		$("#btnEmailCode").attr('disabled', false);
 		receiveCode = "";
 		$('.auth').hide();
+		isEmailOk = false;
 	});
 	
 	$("#btnEmailAuth").click(function(){
@@ -48,6 +52,7 @@ $(function(){
 			alert("이메일 인증 실패하였습니다.");
 			$('input[name=auth]').val("");
 			$('input[name=auth]').focus();
+			isEmailOk = false;
 		} // if end
 		
 		const jsonData ={
@@ -61,8 +66,12 @@ $(function(){
 			dataType : "JSON",
 			success : function(data){
 				console.log(data);
-				if(data.result >= 1)
+				if(data.result >= 1){
 					$('.emailResult').css('color',"red").text("인증 코드가 다릅니다. 다시 확인해주세요");
+					isEmailOk = false;
+				}else{
+					isEmailOk = true;
+				}
 			}
 		}); // ajax end
 	}); // btnEmailAuth click end

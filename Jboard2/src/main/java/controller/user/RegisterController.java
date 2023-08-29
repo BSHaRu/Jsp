@@ -41,6 +41,9 @@ public class RegisterController extends HttpServlet {
 		String nick = request.getParameter("nick");
 		String email = request.getParameter("email");
 		String hp = request.getParameter("hp");
+		String zip = request.getParameter("zip");
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
 		String regIp = request.getRemoteAddr();
 		
 		UserDTO dto = new UserDTO();
@@ -50,6 +53,9 @@ public class RegisterController extends HttpServlet {
 		dto.setNick(nick);
 		dto.setEmail(email);
 		dto.setHp(hp);
+		dto.setZip(zip);
+		dto.setAddr1(addr1);
+		dto.setAddr2(addr2);
 		dto.setRegIp(regIp);
 		
 		service.insertUser(dto);

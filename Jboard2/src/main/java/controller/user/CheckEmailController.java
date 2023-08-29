@@ -16,8 +16,8 @@ import com.google.gson.JsonObject;
 
 import service.UserService;
 
-@WebServlet("/user/EmailCode.do")
-public class EmailCodeController extends HttpServlet {
+@WebServlet("/user/checkEmail.do")
+public class CheckEmailController extends HttpServlet {
 	private static final long serialVersionUID = 402284503312795026L;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -27,33 +27,13 @@ public class EmailCodeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		
-		String code = service.sendEmailCode(email);
-		
-		// JSON 생성
-		JsonObject json = new JsonObject();
-		json.addProperty("code", code);
-		logger.info("code : " + code);
-		
-		// JSON 출력
-		PrintWriter pw =  response.getWriter();
-		pw.print(json.toString());
-		pw.close();
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		String code = request.getParameter("code");
-		
-		int result = service.confirmCode(code);
+		int result = service.checkEmail(email);
+		logger.info("result : " + result);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
-		logger.info("result : " + result);
 		
 		// JSON 출력
 		PrintWriter pw =  response.getWriter();

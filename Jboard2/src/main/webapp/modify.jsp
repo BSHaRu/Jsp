@@ -5,11 +5,13 @@
             <section class="modify">
 
                 <form action="#">
-                    <table border="0">
+                    <table>
                         <caption>글수정</caption>
                         <tr>
                             <th>제목</th>
-                            <td><input type="text" name="title" placeholder="제목을 입력하세요."/></td>
+                            <td>
+                            	<input type="text" name="title" placeholder="제목을 입력하세요."/>
+                            </td>
                         </tr>
                         <tr>
                             <th>내용</th>
@@ -26,7 +28,7 @@
                     </table>
                     
                     <div>
-                        <a href="./view.jsp" class="btn btnCancel">취소</a>
+                        <a href="./view.do" class="btn btnCancel">취소</a>
                         <input type="submit" value="작성완료" class="btn btnComplete"/>
                     </div>
                 </form>

@@ -79,6 +79,22 @@ public class UserDAO extends DBCP {
 		return result;
 	}
 	
+	public int checkEmail(String email) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.CHECK_EMAIL);
+			psmt.setString(1, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) result = rs.getInt(1);
+		} catch (SQLException e) {
+			logger.error("checkNick : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return result;
+	}
+	
 	public int checkHp(String hp) {
 		conn = getConnection();
 		try {
@@ -94,7 +110,23 @@ public class UserDAO extends DBCP {
 		}
 		return result;
 	}
-		
+	
+	public int selectCountNameAndEmail(String name, String email) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.SELECT_COUNT_NAME_AND_EMAIL);
+			psmt.setString(1, name);
+			psmt.setString(2, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) result = rs.getInt(1);
+		} catch (SQLException e) {
+			logger.error("checkHp : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return result;
+	}
 	
 	public UserDTO selectUser(String uid, String pass) {
 		UserDTO dto = null;
@@ -117,6 +149,26 @@ public class UserDAO extends DBCP {
 		return dto;
 	}
 	
+	public UserDTO findIdForEmail(String name, String email) {
+		UserDTO dto = null;
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.FIND_ID_FOR_EMAIL);
+			psmt.setString(1, name);
+			psmt.setString(2, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new UserDTO();
+				dto = getUser(rs);
+			}
+		} catch (SQLException e) {
+			logger.error("selectUser : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return dto;
+	}
 	
 	public List<UserDTO> selectUsers() {
 		List<UserDTO> list = new ArrayList<>();
@@ -152,4 +204,5 @@ public class UserDAO extends DBCP {
 		}catch (Exception e) {}
 		return dto;
 	}
+	
 }

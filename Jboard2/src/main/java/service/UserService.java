@@ -55,6 +55,9 @@ public class UserService {
 	public int checkNick(String nick) {
 		return dao.checkNick(nick);
 	}
+	public int checkEmail(String email) {
+		return dao.checkEmail(email);
+	}
 	public int checkHp(String hp) {
 		return dao.checkHp(hp);
 	}
@@ -78,7 +81,8 @@ public class UserService {
 		// Gamil SMTP 서버 설정
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "465");
+		// 465포트보다 587포트가 보안↑, 범위↑
+		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.ssl.enable", "true");
 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -116,4 +120,5 @@ public class UserService {
 		else
 			return 1;
 	}
+	
 }

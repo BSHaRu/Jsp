@@ -20,7 +20,11 @@ public class SQL {
 	
 	public static final String SELECT_USER 
 		= "SELECT * FROM User "
-			+ " WHERE uid =? AND pass =SHA2(?, 256)";
+			+ " WHERE uid = ? AND pass = SHA2(?, 256)";
+
+	public static final String FIND_ID_FOR_EMAIL 
+		= "SELECT * FROM User "
+			+ " WHERE name = ? AND email = ?";
 	
 	public static final String CHECK_UID
 		= "SELECT COUNT(*) FROM User WHERE uid = ?";
@@ -34,6 +38,9 @@ public class SQL {
 	public static final String CHECK_EMAIL
 		= "SELECT COUNT(*) FROM User WHERE email = ?";
 
+	public static final String SELECT_COUNT_NAME_AND_EMAIL 
+		= "";
+	
 	public static final String SELECT_TERMS 
 		= "SELECT * FROM Terms";
 	
@@ -122,6 +129,7 @@ public class SQL {
 			+ " OR parent = ?";
 	// parent를 받는 이유가 게시글 삭제시
 	// 해당 게시글에 있는 댓글도 삭제해주기 위해서임
+
 
 
 

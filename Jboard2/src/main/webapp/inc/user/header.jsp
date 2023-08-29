@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>아이디 찾기</title>
+    <title>User</title>
     <link rel="stylesheet" href="/Jboard2/css/style.css"/>
 </head>
 <body>
