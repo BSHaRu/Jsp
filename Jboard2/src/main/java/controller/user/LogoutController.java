@@ -20,6 +20,6 @@ public class LogoutController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		response.sendRedirect("/Jboard2/user/index.jsp");
+		response.sendRedirect("/Jboard2/user/login.do");
 	}
 }

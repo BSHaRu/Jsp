@@ -107,12 +107,12 @@ $(function(){
 			return false; 
 		}
 		
-		console.log("isEmailOk : " + isEmailOk);
+		/*console.log("isEmailOk : " + isEmailOk);
 		console.log("isZipOk : " + isZipOk);
 		console.log("isAddr1Ok : " + isAddr1Ok);
 		console.log("isAddr2Ok : " + isAddr2Ok);
 		
-		alert("회원가입 축하드립니다!");
+		alert("회원가입 축하드립니다!");*/
 		return true;
 	});
 });

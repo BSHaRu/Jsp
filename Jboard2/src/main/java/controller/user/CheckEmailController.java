@@ -29,7 +29,7 @@ public class CheckEmailController extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		int result = service.checkEmail(email);
-		logger.info("result : " + result);
+		logger.info("CheckEmail result : " + result);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();

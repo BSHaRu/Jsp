@@ -13,7 +13,7 @@ public class UserDTO {
 	private String zip;
 	private String addr1;
 	private String addr2;
-	private String regIp;
+	private String regIp; 
 	private Date regDate;
 	private Date leaveDate;
 	

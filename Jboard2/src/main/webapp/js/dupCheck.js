@@ -66,11 +66,12 @@ $(function(){
 	}); // nick click end 
 	
 	// email 중복 체크
-	$('input[name=email]').keyup(function(){
-		console.log("email");
-		const email = $(this).val();
+	$('#btnEmailCode').click(function(){
+		console.log("email click");
+		const email = $('input[name=email]').val();
+		
 		const jsonData = {
-			"eamil" : email
+			"email" : email
 		};
 		console.log(jsonData);
 		

@@ -3,8 +3,8 @@
 <%@ include file="/inc/user/header.jsp" %>
         <main id="user">
             <section class="find findPass">
-                <form action="#">
-                    <table border="0">
+                <form action="/Jboard2/user/findPass.do" method="post">
+                    <table>
                         <caption>비밀번호 찾기</caption>                        
                         <tr>
                             <td>아이디</td>
@@ -16,6 +16,7 @@
                                 <div>
                                     <input type="email" name="email" placeholder="이메일 입력"/>
                                     <button type="button" class="btnAuth">인증번호 받기</button>
+                                    <span class="emailResult"></span>
                                 </div>
                                 <div>
                                     <input type="text" name="auth" disabled placeholder="인증번호 입력"/>

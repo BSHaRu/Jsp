@@ -58,9 +58,27 @@ public class UserService {
 	public int checkEmail(String email) {
 		return dao.checkEmail(email);
 	}
+	public int checkNameAndEmail(String name, String email) {
+		return dao.checkNameAndEmail(name, email);
+	}
 	public int checkHp(String hp) {
 		return dao.checkHp(hp);
 	}
+	
+	public int findIdForEmail(String name, String email) {
+		return dao.findIdForEmail(name, email);
+	}
+	public UserDTO findIdForEmailInResult(String name, String email) {
+		return dao.findIdForEmailInResult(name, email);
+	}
+	
+	public int updateUserPass(String uid, String pass) {
+		return dao.updateUserPass(uid, pass);
+	}
+	public int updateUserForWithdraw(String uid) {
+		return dao.updateUserForWithdraw(uid);
+	}
+	
 	
 	// email code 전송
 	public String sendEmailCode(String receiver) {
@@ -112,7 +130,7 @@ public class UserService {
 		
 		return generatedCode;
 	} // sendEmailCode end
-	
+
 	// code 검증 확인
 	public int confirmCode(String code) {
 		if(code.equals(generatedCode)) 

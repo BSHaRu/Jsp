@@ -8,6 +8,7 @@ isEmailOk = false;
 $(function(){
 	$("#btnEmailCode").click(function(){
 		alert("이메일을 확인 후 코드를 입력해 주세요.");
+		const type = $('input[name=type]').val();
 		const name = $('input[name=name]').val();
 		const email = $('input[name=email]').val();
 		
@@ -15,9 +16,11 @@ $(function(){
 		$("#btnEmailCode").attr('disabled', true);
 		
 		const jsonData = {
+			"type" : type,
 			"name" : name,
 			"email" : email
 		};
+		console.log(jsonData);
 		
 		$.ajax({
 			url : "/Jboard2/user/EmailCode.do",
@@ -29,6 +32,9 @@ $(function(){
 				receiveCode = data.code;
 				
 				$('.auth').show();
+			},
+			error : function(e){
+				console.log(e);
 			}
 		}); // ajax end
 	}); // btnEmailCode end

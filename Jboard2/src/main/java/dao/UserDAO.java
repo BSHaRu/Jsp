@@ -87,6 +87,24 @@ public class UserDAO extends DBCP {
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) result = rs.getInt(1);
+			logger.info("checkEmail result : " + result);
+		} catch (SQLException e) {
+			logger.error("checkNick : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return result;
+	}
+	public int checkNameAndEmail(String name, String email) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.CHECK_NAME_EMAIL);
+			psmt.setString(1, name);
+			psmt.setString(2, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) result = rs.getInt(1);
+			logger.info("result 더러운값 : " + result);
 		} catch (SQLException e) {
 			logger.error("checkNick : " + e.getMessage());
 		}finally {
@@ -100,23 +118,6 @@ public class UserDAO extends DBCP {
 		try {
 			psmt = conn.prepareStatement(SQL.CHECK_HP);
 			psmt.setString(1, hp);
-			rs = psmt.executeQuery();
-			
-			if(rs.next()) result = rs.getInt(1);
-		} catch (SQLException e) {
-			logger.error("checkHp : " + e.getMessage());
-		}finally {
-			close(rs, psmt, conn);
-		}
-		return result;
-	}
-	
-	public int selectCountNameAndEmail(String name, String email) {
-		conn = getConnection();
-		try {
-			psmt = conn.prepareStatement(SQL.SELECT_COUNT_NAME_AND_EMAIL);
-			psmt.setString(1, name);
-			psmt.setString(2, email);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) result = rs.getInt(1);
@@ -149,11 +150,30 @@ public class UserDAO extends DBCP {
 		return dto;
 	}
 	
-	public UserDTO findIdForEmail(String name, String email) {
-		UserDTO dto = null;
+	// 이메일 인증 -> 필요없는거 같은데..?
+	public int findIdForEmail(String name, String email) {
 		conn = getConnection();
 		try {
 			psmt = conn.prepareStatement(SQL.FIND_ID_FOR_EMAIL);
+			psmt.setString(1, name);
+			psmt.setString(2, email);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) result = rs.getInt(1);
+		} catch (SQLException e) {
+			logger.error("findIdForEmail : " + e.getMessage());
+		}finally {
+			close(rs, psmt, conn);
+		}
+		return result;
+	}
+	
+	// 이메일 인증 후 id 찾기 결과 값 조회
+	public UserDTO findIdForEmailInResult(String name, String email) {
+		UserDTO dto = null;
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.FIND_ID_FOR_EMAIL_IN_RESULT);
 			psmt.setString(1, name);
 			psmt.setString(2, email);
 			rs = psmt.executeQuery();
@@ -163,7 +183,7 @@ public class UserDAO extends DBCP {
 				dto = getUser(rs);
 			}
 		} catch (SQLException e) {
-			logger.error("selectUser : " + e.getMessage());
+			logger.error("findIdForEmailInResult : " + e.getMessage());
 		}finally {
 			close(rs, psmt, conn);
 		}
@@ -181,7 +201,39 @@ public class UserDAO extends DBCP {
 		
 	}
 	
+	
+	public int updateUserPass(String uid, String pass) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_USER_PASS);
+			psmt.setString(1, uid);
+			psmt.setString(2, pass);
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("updateUserPass : " + e.getMessage());
+		}finally {
+			close(psmt, conn);
+		}
+		return result;
+	}
+	
+	// 회원 탈퇴 -> id랑 leavedate는 남기고 나머지 개인정보만 삭제(null)
+	public int updateUserForWithdraw(String uid) {
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_USER_FOR_WITHDRAW);
+			psmt.setString(1, uid);
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("updateUserForWithdraw : " + e.getMessage());
+		}finally {
+			close(psmt, conn);
+		}
+		return result;
+	}
+	
 	public void deleteUser(String uid) {
+		
 		
 	}
 	
@@ -201,6 +253,7 @@ public class UserDAO extends DBCP {
 			dto.setZip(rs.getString(8));
 			dto.setAddr1(rs.getString(9));
 			dto.setAddr2(rs.getString(10));
+			dto.setRegDate(rs.getDate("regDate"));
 		}catch (Exception e) {}
 		return dto;
 	}

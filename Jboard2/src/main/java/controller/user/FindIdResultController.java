@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.UserDTO;
 import service.UserService;
 
 @WebServlet("/user/findIdResult.do")
@@ -18,9 +19,14 @@ public class FindIdResultController extends HttpServlet{
 	private UserService service = UserService.getInstance();
 	
 	@Override
-	protected void doGet(HttpServletRequest request, 
+	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		UserDTO dto = service.findIdForEmailInResult(name, email);
+		request.setAttribute("user", dto);
 		
 		
 		RequestDispatcher rd 

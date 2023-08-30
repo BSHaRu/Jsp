@@ -27,10 +27,45 @@ public class EmailCodeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		String type = request.getParameter("type");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
+		logger.info("1");
 		
-		String code = service.sendEmailCode(email);
+		PrintWriter pw =  response.getWriter();
+		logger.info("2");
+		
+		int result = 0;
+		String code = "";
+		if(type.equals("register")) {
+			// 회원 가입시 인증 코드 발송
+			code = service.sendEmailCode(email);
+			result = service.checkEmail(email);
+		}else if(type.equals("findId")) {
+			result = service.checkNameAndEmail(name, email);
+			if(result == 0) {
+				// 등록된 이메일이 아닐 경우
+				pw.print("<script>");
+				pw.print("alert('이름과 등록된 이메일이 다릅니다. 다시 확인해 주세요');");
+				pw.print("</script>");
+				pw.close();
+				logger.info("위에껄 실행 시키고 click이 실행 되는데 어쩌지?");
+				return;
+			}else {
+			// id 찾기 시 인증 코드 발송
+			/*
+			 * UserDTO dto = new UserDTO(); dto.setName(name); dto.setEmail(email);
+			 * 
+			 * dto = service.findIdForEmailInResult(name, email);
+			 * 
+			 */
+			code = service.sendEmailCode(email);
+			logger.info("5");
+			}
+		}else {
+			logger.info("넌 뭐냐?");
+		}
+		// code = service.sendEmailCode(email);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
@@ -38,7 +73,6 @@ public class EmailCodeController extends HttpServlet {
 		logger.info("code : " + code);
 		
 		// JSON 출력
-		PrintWriter pw =  response.getWriter();
 		pw.print(json.toString());
 		pw.close();
 	}

@@ -3,24 +3,27 @@
 <%@ include file="/inc/user/header.jsp" %>
 <main id="user">
     <section class="find findId">
-        <form id="findForm" action="/Jboard2/user/findIdResult.do" method="get">
+        <form id="findForm" action="/Jboard2/user/findIdResult.do" method="post">
+        	<input type="hidden" name="type" value="findId" />
             <table>
                 <caption>아이디 찾기</caption>
                 <tr>
                     <td>이름</td>
-                    <td><input type="text" name="name" placeholder="이름 입력"/></td>
+                    <td>
+                    	<input type="text" name="name" placeholder="이름 입력"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>이메일</td>
                     <td>
                         <div>
                             <input type="email" name="email" placeholder="이메일 입력"/>
-                            <button type="button" id="btnEmailAuth" class="btnAuth">인증번호 받기</button>
+                            <button type="button" id="btnEmailCode" class="btnAuth">인증번호 받기</button>
                             <span class="emailResult"></span>
                         </div>
                         <div>
-                            <input type="text" name="auth" disabled placeholder="인증번호 입력"/>
-                            <button type="button" class="btnConfirm">확인</button>
+                            <input type="text" name="auth" placeholder="인증번호 입력"/>
+                            <button type="button" id="btnEmailAuth" class="btnConfirm">확인</button>
                         </div>
                     </td>
                 </tr>                        

@@ -22,10 +22,6 @@ public class SQL {
 		= "SELECT * FROM User "
 			+ " WHERE uid = ? AND pass = SHA2(?, 256)";
 
-	public static final String FIND_ID_FOR_EMAIL 
-		= "SELECT * FROM User "
-			+ " WHERE name = ? AND email = ?";
-	
 	public static final String CHECK_UID
 		= "SELECT COUNT(*) FROM User WHERE uid = ?";
 
@@ -37,9 +33,17 @@ public class SQL {
 	
 	public static final String CHECK_EMAIL
 		= "SELECT COUNT(*) FROM User WHERE email = ?";
+	
+	public static final String CHECK_NAME_EMAIL
+		= "SELECT COUNT(*) FROM User WHERE name= ? AND email = ?";
 
-	public static final String SELECT_COUNT_NAME_AND_EMAIL 
-		= "";
+	public static final String FIND_ID_FOR_EMAIL 
+		= "SELECT COUNT(*) FROM User "
+				+ " WHERE name = ? AND email = ?";
+	
+	public static final String FIND_ID_FOR_EMAIL_IN_RESULT 
+		= "SELECT * FROM User "
+			+ " WHERE name = ? AND email = ?";
 	
 	public static final String SELECT_TERMS 
 		= "SELECT * FROM Terms";
@@ -79,7 +83,7 @@ public class SQL {
 				+ " WHERE parent = 0";
 		// parent 0을 안달면 댓글도 갯수로 쳐서 no가 꼬임
 
-	// 
+	
 	public static final String SELECT_ARTICEL 
 		= "SELECT * FROM `Article` WHERE no = ?";
 
@@ -129,6 +133,24 @@ public class SQL {
 			+ " OR parent = ?";
 	// parent를 받는 이유가 게시글 삭제시
 	// 해당 게시글에 있는 댓글도 삭제해주기 위해서임
+
+	// 회원 탈퇴 - id값과 leaveDate값을 남기고 null로 수정
+	public static final String UPDATE_USER_FOR_WITHDRAW 
+		= "UPDATE User SET "
+				+ " pass = null, "
+				+ " name = null, "
+				+ " nick = null, "
+				+ " email = null, "
+				+ " hp = null, "
+				+ " role = null, "
+				+ " zip = null, "
+				+ " addr1 = null, "
+				+ " addr2 = null, "
+				+ " leaveDate = NOW() "
+				+ " WHERE uid = ?";
+
+	public static final String UPDATE_USER_PASS 
+		= "";
 
 
 

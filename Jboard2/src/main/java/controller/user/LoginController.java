@@ -41,6 +41,7 @@ public class LoginController extends HttpServlet{
 		String pass = request.getParameter("pass");
 		
 		UserDTO dto = service.selectUser(uid, pass);
+		logger.info("Login dto : " + dto);
 		
 		// 이거 설정 안해주면 script에서 한글 깨짐
 		response.setContentType("text/html;charset=utf-8");
@@ -51,12 +52,12 @@ public class LoginController extends HttpServlet{
 			
 			response.sendRedirect("/Jboard2/list.do");
 		}else {
-			PrintWriter out = response.getWriter();
-			out.print("<script>");
-			out.print("alert('등록된 아이디가 아니거나 비밀번호가 틀렸습니다.');");
-			out.print("location.href='/Jboard2/user/login.do';");
-			out.print("</script>");
-			out.close();
+			PrintWriter pw = response.getWriter();
+			pw.print("<script>");
+			pw.print("alert('등록된 아이디가 아니거나 비밀번호가 틀렸습니다.');");
+			pw.print("location.href='/Jboard2/user/login.do';");
+			pw.print("</script>");
+			pw.close();
 		}
 		
 	}
