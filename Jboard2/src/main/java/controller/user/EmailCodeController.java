@@ -33,7 +33,6 @@ public class EmailCodeController extends HttpServlet {
 		logger.info("1");
 		
 		PrintWriter pw =  response.getWriter();
-		logger.info("2");
 		
 		int result = 0;
 		String code = "";
@@ -41,8 +40,10 @@ public class EmailCodeController extends HttpServlet {
 			// 회원 가입시 인증 코드 발송
 			code = service.sendEmailCode(email);
 			result = service.checkEmail(email);
+			logger.info("EmailCode_Get_Register result : " + result);
 		}else if(type.equals("findId")) {
 			result = service.checkNameAndEmail(name, email);
+			logger.info("EmailCode_Get_FindId result : " + result);
 			if(result == 0) {
 				// 등록된 이메일이 아닐 경우
 				pw.print("<script>");
@@ -60,7 +61,6 @@ public class EmailCodeController extends HttpServlet {
 			 * 
 			 */
 			code = service.sendEmailCode(email);
-			logger.info("5");
 			}
 		}else {
 			logger.info("넌 뭐냐?");
@@ -70,7 +70,7 @@ public class EmailCodeController extends HttpServlet {
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("code", code);
-		logger.info("code : " + code);
+		logger.info("EmailCode code : " + code);
 		
 		// JSON 출력
 		pw.print(json.toString());
@@ -87,7 +87,7 @@ public class EmailCodeController extends HttpServlet {
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
-		logger.info("result : " + result);
+		logger.info("EmailCode_Post result : " + result);
 		
 		// JSON 출력
 		PrintWriter pw =  response.getWriter();

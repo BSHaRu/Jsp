@@ -55,16 +55,17 @@ public class MyinfoController extends HttpServlet{
 			json.addProperty("result", result);
 
 			response.getWriter().print(json);
-			logger.info("json : " + json);
+			logger.info("myInfo_WITHDRAW json : " + json);
 			break;
 		case "PASSWORD" :
 			int result2 = service.updateUserPass(uid, pass);
+			logger.info("myInfo_PASSWORD result2 : " + result2);
 			
 			JsonObject json2 = new JsonObject();
 			json2.addProperty("result", result2);
 
 			response.getWriter().print(json2);
-			logger.info("json : " + json2);
+			logger.info("myInfo_PASSWORD json : " + json2);
 			break;
 		case "Modify" :
 			break;

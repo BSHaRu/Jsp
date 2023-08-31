@@ -21,9 +21,9 @@ $(function(){
 			
 			// fetch에서 post 데이터 전송을 위해 URLSearchParams 사용
 			const params = new URLSearchParams();
-			formData.append("kind", "PASSWORD");
-			formData.append("uid", inputUid.value);
-			formData.append("pass", inputPass.value);
+			params.append("kind", "PASSWORD");
+			params.append("uid", inputUid.value);
+			params.append("pass", inputPass.value);
 
 			fetch("/Jboard2/user/myInfo.do",{
 				 method : "POST",
@@ -32,7 +32,10 @@ $(function(){
 				.then((response) => response.json())
 				.then((data) => {
 					console.log(data);
-					
+					if(data.result > 0){
+						alert("비밀번호가 수정되었습니다. 다시 로그인 하세요.");
+						location.href = "/Jboard2/user/logout.do";
+					}
 				});
 		 }else{
 			 alert("비밀번호가 유효하지 않습니다.");
@@ -56,7 +59,6 @@ $(function(){
 				data : jsonData,
 				dataType : "json",
 				success : function(data){
-					console.log("1234");
 					console.log(data);
 					if(data.result >= 1){
 						console.log(data.result);
@@ -64,13 +66,9 @@ $(function(){
 						// 회원탈퇴를 해도 세션이 남아 있기 때문에 로그아웃으로 보내는거임
 						location.href = "/Jboard2/user/logout.do";
 					}else{
-						console.log("8888");
+						console.log("탈퇴 왜 안됨?");
 					}
-				},
-				error : function(e){
-					console.log(e);
-					console.log("이거 왜 찍히냐?");
-				} 
+				}
 			 }); // ajax end
 		} // if end		 
 	 });

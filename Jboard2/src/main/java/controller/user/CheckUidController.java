@@ -29,21 +29,15 @@ public class CheckUidController extends HttpServlet {
 		
 		String uid = request.getParameter("uid");
 		int result = service.checkUid(uid);
-		logger.info("result : " + result);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
+		logger.info("checkUid result : " + result);
 		
 		// JSON 출력
 		PrintWriter pw =  response.getWriter();
 		pw.print(json.toString());
 		pw.close();
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

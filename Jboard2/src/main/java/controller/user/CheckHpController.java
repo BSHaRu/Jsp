@@ -29,21 +29,15 @@ public class CheckHpController extends HttpServlet {
 		
 		String hp = request.getParameter("hp");
 		int result = service.checkHp(hp);
-		logger.info("result : " + result);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
+		logger.info("checkHp result : " + result);
 		
 		// JSON 출력
 		PrintWriter pw =  response.getWriter();
 		pw.print(json.toString());
 		pw.close();
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

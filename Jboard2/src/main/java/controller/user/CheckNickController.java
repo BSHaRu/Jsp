@@ -29,21 +29,15 @@ public class CheckNickController extends HttpServlet {
 		
 		String nick = request.getParameter("nick");
 		int result = service.checkNick(nick);
-		logger.info("result : " + result);
 		
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
+		logger.info("checkNick result : " + result);
 		
 		// JSON 출력
 		PrintWriter pw =  response.getWriter();
 		pw.print(json.toString());
 		pw.close();
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

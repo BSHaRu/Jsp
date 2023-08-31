@@ -50,10 +50,16 @@ public class SQL {
 	
 	
 	// Article
+	// 이걸 하는 이유가 게시판 글 쓰자마자 바로 업로드 되는 게시글 조회하려고
+	// -> 파일 업로드 할 때 글 쓰자마자 해당 게시글 번호를 가져 올 수 있음
+	public static final String SELECT_MAX_NO
+		= "SELECT MAX(`no`) FROM `Article`";
+	
 	public static final String INSERT_ARTICLE
 		= "INSERT INTO Article SET "
 			+ " title = ? ,"
 			+ " content = ? ,"
+			+ " file = ? ,"
 			+ " writer = ? ,"
 			+ " regIP = ? ,"
 			+ " regDate = NOW()";
@@ -87,7 +93,7 @@ public class SQL {
 	public static final String SELECT_ARTICEL 
 		= "SELECT * FROM `Article` WHERE no = ?";
 
-	public static final String SELECT_COMMENTS 
+	public static final String SELECT_CONTENTS 
 		= "SELECT "
 			+ "	a.*,"
 			+ "	u.nick "
@@ -111,7 +117,6 @@ public class SQL {
 		= "UPDATE Article SET "
 				+ " title = ?, "
 				+ " content = ? "
-				//+ " file = ? "
 				+ " WHERE no = ?";
 	
 	// 댓글 수정
@@ -150,7 +155,22 @@ public class SQL {
 				+ " WHERE uid = ?";
 
 	public static final String UPDATE_USER_PASS 
-		= "";
+		= "UPDATE User SET "
+				+ " pass = SHA2(?, 256) "
+				+ " WHERE uid = ? ";
+
+	
+	
+	public static final String INSERT_FILE 
+		= "INSERT INTO `File` SET "
+				+ " `ano` = ?, "
+				+ " `oriName` = ?, "
+				+ " `newName` = ?, "
+				+ " `regDate` = NOW()";
+
+	// 파일 다운로드
+	public static final String SEECT_FILES 
+		= "SELECT * FROM `File`";
 
 
 
