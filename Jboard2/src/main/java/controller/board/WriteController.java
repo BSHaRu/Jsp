@@ -60,9 +60,11 @@ public class WriteController extends HttpServlet{
 		dto.setRegIp(regIp);
 		
 		request.setAttribute("article", dto);
+		logger.info("writePost_dto : "+dto);
 		
 		// 게시판 글 쓴 후 해당 게시판 번호를 가져옴
 		int ano = service.insertArticle(dto);
+		logger.info("writePost_ano : "+ano);
 		
 		// 파일명 수정 
 		if(oName != null) {

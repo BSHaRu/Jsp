@@ -17,12 +17,20 @@ public class ArticleDTO {
 	
 	// join 추가
 	private String nick;
-	
 	public String getNick() {
 		return nick;
 	}
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+	
+	// 파일 join 추가
+	private FileDTO fileDto;
+	public FileDTO getFileDto() {
+		return fileDto;
+	}
+	public void setFileDto(FileDTO fileDto) {
+		this.fileDto = fileDto;
 	}
 	
 	
@@ -95,8 +103,15 @@ public class ArticleDTO {
 	
 	@Override
 	public String toString() {
-		return "ArticleDTO [no=" + no + ", parent=" + parent + ", comment=" + comment + ", title="
-				+ title + ", content=" + content + ", file=" + file + ", writer=" + writer + ", regIp="
-				+ regIp + ", regDate=" + regDate + ", nick=" + nick + "]";
+		return "ArticleDTO [no=" + no + ", parent=" + parent + ", comment=" + comment + ", cate=" + cate + ", title="
+				+ title + ", content=" + content + ", file=" + file + ", hit=" + hit + ", writer=" + writer + ", regIp="
+				+ regIp + ", regDate=" + regDate + ", nick=" + nick + ", fileDto=" + fileDto + ", getNick()="
+				+ getNick() + ", getFileDto()=" + getFileDto() + ", getNo()=" + getNo() + ", getParent()=" + getParent()
+				+ ", getComment()=" + getComment() + ", getCate()=" + getCate() + ", getTitle()=" + getTitle()
+				+ ", getContent()=" + getContent() + ", getFile()=" + getFile() + ", getHit()=" + getHit()
+				+ ", getWriter()=" + getWriter() + ", getRegIp()=" + getRegIp() + ", getRegDate()=" + getRegDate()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+	
 }

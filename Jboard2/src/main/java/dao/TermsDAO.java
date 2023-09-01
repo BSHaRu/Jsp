@@ -4,7 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dto.TermsDTO;
-import util.*;
+import util.DBCP;
+import util.SQL;
 
 public class TermsDAO extends DBCP {
 

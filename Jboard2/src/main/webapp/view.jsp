@@ -15,11 +15,11 @@
             <tr>
                 <th>파일</th>
                 <td>
-                	<a href="#">2020년 상반기 매출자료.xls</a>
-                	&nbsp;<span>7</span>회 다운로드
+                	<a href="/Jboard2/fileDownLoad.do?fno=${article.fileDto.fno }">${article.fileDto.oriName }</a>
+                	&nbsp;<span>${article.fileDto.download }</span>회 다운로드
                 </td>
             </tr>
-            </c:if>
+            </c:if> 
             <tr>
                 <th>내용</th>
                 <td>
@@ -30,7 +30,7 @@
         
         <div>
         	<c:if test="${sessUser.uid eq article.writer}">
-	            <a href="#" class="btn btnRemove">삭제</a>
+	            <a href="/Jboard2/delete.do?no=${article.no}" class="btn btnRemove">삭제</a>
 	            <a href="./modify.do?no=${article.no}" class="btn btnModify">수정</a>
             </c:if>
             <a href="./list.do" class="btn btnList">목록</a>
@@ -48,7 +48,10 @@
 		                  <p class="content">${content.content }</p> 
 		                  <c:if test="${sessUser.uid eq content.writer}">
 			                  <div>
-			                      <a href="#" class="remove">삭제</a>
+			                  	<!-- data-value 속성 
+			                  		- 사용자 정의 속성으로 사용자가 임의로 속성을 추가해서 사용 
+		                  		-->
+			                      <a href="#" class="remove" data-no="${content.no }">삭제</a>
 			                      <a href="#" class="modify">수정</a>
 			                  </div>
 		                  </c:if>
@@ -64,18 +67,23 @@
         <!-- 댓글쓰기 -->
         <section class="commentForm">
             <h3>댓글쓰기</h3>
-            <form action="/Jboard2/view.do" method="post">
+            <form id="formContent" action="#" method="post">
             	<input type="hidden" name="parent" value="${article.no }" />
             	<input type="hidden" name="writer" value="${sessUser.uid}" />
                 <textarea name="content"></textarea>
                 <div>
                     <input type="reset" class="btn btnCancel" value="취소" />
-                    <input type="submit" value="작성완료" class="btn btnComplete"/>
+                    <input type="submit" id="btnContent" value="작성완료" class="btn btnComplete"/>
                 </div>
             </form>
         </section>
 
     </section>
 </main>
-
 <%@ include file="/inc/board/footer.jsp" %>
+<!-- <script src="/Jboard2/js/comment.js"></script> -->
+<script>
+	$(function(){
+		
+	});
+</script>

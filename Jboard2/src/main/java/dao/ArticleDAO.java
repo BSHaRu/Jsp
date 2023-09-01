@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dto.ArticleDTO;
+import dto.FileDTO;
 import util.DBCP;
 import util.SQL;
 
@@ -55,6 +56,7 @@ public class ArticleDAO extends DBCP {
 			try {
 				// 작업 실패시 rollback()을 해서 저장x
 				conn.rollback(); 
+				logger.error("insertArticle rollback()");
 			} catch (SQLException e1) {}
 			logger.error("insertArticle : "+e.getMessage());
 		}finally {
@@ -63,7 +65,7 @@ public class ArticleDAO extends DBCP {
 		return no;
 	}
 	
-	
+	// 게시판 조회 -> + 파일 명이 나와야 하기 떄문에 파일과 JOIN
 	public ArticleDTO selectArticle(int no) {
 		ArticleDTO dto = null;
 		conn = getConnection();
@@ -75,6 +77,11 @@ public class ArticleDAO extends DBCP {
 			if(rs.next()) {
 				dto = new ArticleDTO();
 				dto = getArticle(rs);
+				
+				// 파일 정보
+				FileDAO file = new FileDAO();
+				FileDTO fileDto = file.getFile(rs);
+				dto.setFileDto(fileDto);
 			}
 		} catch (SQLException e) {
 			logger.error("selectArticle : " + e.getMessage());
@@ -85,13 +92,20 @@ public class ArticleDAO extends DBCP {
 	}
 	
 	// article 전체 조회
-	public List<ArticleDTO> selectArticles(int start, int pageCount){
+	public List<ArticleDTO> selectArticles(int start, int pageCount, String search){
 		List<ArticleDTO> list = new ArrayList<>();
 		conn = getConnection();
 		try {
-			psmt = conn.prepareStatement(SQL.SELECT_ARTICLES);
-			psmt.setInt(1, start);
-			psmt.setInt(2, pageCount);
+			if(search != null && !search.equals("")) {
+				psmt = conn.prepareStatement(SQL.SELECT_ARTICLES_FOR_SEARCH);
+				psmt.setString(1, "%"+search+"%");
+				psmt.setInt(2, start);
+				psmt.setInt(3, pageCount);
+			}else {
+				psmt = conn.prepareStatement(SQL.SELECT_ARTICLES);
+				psmt.setInt(1, start);
+				psmt.setInt(2, pageCount);
+			}
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
@@ -108,8 +122,30 @@ public class ArticleDAO extends DBCP {
 		return list;
 	}
 	
+	// 게시글 조회
+	public int selectCountTotal(String search) {
+		int total = 0;
+		conn = getConnection();
+		try {
+			if(search != null && !search.equals("")) {
+				psmt = conn.prepareStatement(SQL.SELECT_COUNT_ARTICLE_FOR_SEARCH);
+				psmt.setString(1, "%"+search+"%");
+			}else {
+				psmt = conn.prepareStatement(SQL.SELECT_COUNT_ARTICLE);
+			}
+			rs = psmt.executeQuery();
+			if(rs.next()) total = rs.getInt(1);
+		} catch (SQLException e) {
+			logger.error("selectCountTotal : " + e.getMessage());
+		} finally {
+			close(rs, psmt, conn);
+		}
+		return total;
+	}
+	
 	// 댓글 쓰기
-	public void insertContent(ArticleDTO dto) {
+	public int insertContent(ArticleDTO dto) {
+		int result = 0;
 		conn = getConnection();
 		try {
 			psmt = conn.prepareStatement(SQL.INSERT_CONTENT);
@@ -117,12 +153,13 @@ public class ArticleDAO extends DBCP {
 			psmt.setString(2, dto.getContent());
 			psmt.setString(3, dto.getWriter());
 			psmt.setString(4, dto.getRegIp());
-			psmt.executeUpdate();
+			result = psmt.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("insertContent : " + e.getMessage());
 		}finally {
 			close(psmt, conn);
 		}
+		return result;
 	}
 	
 	// 댓글 보기
@@ -164,8 +201,21 @@ public class ArticleDAO extends DBCP {
 		}
 	}
 
-	public void deleteArticle(int no) {
-		
+	public int deleteArticle(int no) {
+		int result = 0;
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.DELETE_ARTICLE);
+			psmt.setInt(1, no);
+			// no랑 parent는 결국 같은 값이기 떄문에 no로 2개 받음
+			psmt.setInt(2, no);
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("deleteArticle : " + e.getMessage());
+		} finally {
+			close(psmt, conn);
+		}
+		return result;
 	}
 	
 	

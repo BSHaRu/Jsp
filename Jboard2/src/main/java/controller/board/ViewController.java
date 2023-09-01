@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.JsonObject;
+
 import dto.ArticleDTO;
 import dto.UserDTO;
 import service.ArticleService;
@@ -75,10 +77,16 @@ public class ViewController extends HttpServlet {
 		dto.setWriter(writer);
 		dto.setRegIp(regIp);
 		
-		service.insertContent(dto);
+		int result = service.insertContent(dto);
 		logger.info("viewPost_dto : " + dto);
 		
-		response.sendRedirect("/Jboard2/view.do?no="+parent);
+		// response.sendRedirect("/Jboard2/view.do?no="+parent);
+		// ajax 요청은 Json을 return 해줘야됨 
+		// -> sendRedirect : form 전송일 때 해주는거임
+		JsonObject json = new JsonObject();
+		json.addProperty("result", result);
+		
+		response.getWriter().print(json);
 	}
 	
 }

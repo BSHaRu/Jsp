@@ -1,12 +1,17 @@
 package service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +21,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.ArticleDAO;
 import dto.ArticleDTO;
+import dto.FileDTO;
 
 public class ArticleService {
 	public static ArticleService instanse = new ArticleService();
@@ -37,12 +43,16 @@ public class ArticleService {
 	}
 
 	// 게시판 전체 조회
-	public List<ArticleDTO> selectArticles(int start, int pageCount){
-		return dao.selectArticles(start, pageCount);
+	public List<ArticleDTO> selectArticles(int start, int pageCount, String search){
+		return dao.selectArticles(start, pageCount, search);
 	}
 	
-	public void insertContent(ArticleDTO dto) {
-		dao.insertContent(dto);
+	public int selectCountTotal(String search) {
+		return dao.selectCountTotal(search);
+	}
+	
+	public int insertContent(ArticleDTO dto) {
+		return dao.insertContent(dto);
 	}
 	
 	// 댓글 조회
@@ -54,8 +64,8 @@ public class ArticleService {
 		dao.updateArticle(dto);
 	}
 
-	public void deleteArticle(int no) {
-		dao.deleteArticle(no);
+	public int deleteArticle(int no) {
+		return dao.deleteArticle(no);
 	}
 	
 	// 파일 업로드 경로
@@ -107,14 +117,89 @@ public class ArticleService {
 	}
 	
 	// 파일 다운로드
-	public void downloadFile() {
+	public void downloadFile(HttpServletRequest request, 
+			HttpServletResponse response, FileDTO dto) throws IOException {
+		// response 파일 다운로드 헤더 수정
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(dto.getOriName(), "utf-8"));
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "private");
+		logger.debug("downloadFile dto : "+dto.getOriName());
 		
+		// response 파일 stream 작업
+		String path = getFilePath(request);
+		File file = new File(path+"/"+dto.getNewName());
+		
+		BufferedInputStream bis 
+			= new BufferedInputStream(
+					new FileInputStream(file));
+
+		BufferedOutputStream bos 
+			= new BufferedOutputStream(
+					response.getOutputStream());
+		
+		while(true){
+			int data = bis.read();
+			if(data == -1) break;
+			bos.write(data);
+		}
+		bos.flush();
+
+		bos.close();
+		bis.close();
 	}
 	
-	
-	// PM
-	public void PageMaker() {
+	// 페이지 마지막 번호
+	public int getLastPageNum(int total, int pageCount) {
 		
+		int lastPageNum = 0;
+		
+		if(total % pageCount == 0){
+			lastPageNum = total / pageCount;
+		}else{
+			lastPageNum = total / pageCount + 1;
+		}
+		
+		return lastPageNum;
+	}
+	
+	// 페이지 그룹 계산
+	public int[] getPageGroupNum(int currentPage, int lastPageNum, int pageCount) {
+		int pageGroupCurrent 
+			= (int) Math.ceil(currentPage / (double)pageCount);
+		int pageGroupStart 
+			= (pageGroupCurrent - 1) * pageCount + 1;
+		int pageGroupEnd 
+			= pageGroupCurrent * pageCount;
+		
+		// 마지막 페이지 보여줌
+		if(pageGroupEnd > lastPageNum){
+			pageGroupEnd = lastPageNum;
+		}
+		
+		int[] result = { pageGroupStart, pageGroupEnd };
+		
+		return result;
+	}
+	
+	// 페이지 시작번호
+	public int getPageStartNum(int total, int currentPage, int pageCount) {
+		int start = (currentPage - 1) * pageCount;
+		return total - start;
+	}
+	
+	// 현재 페이지 번호
+	public int getCurrentPage(String pg) {
+		int currentPage = 1;
+		if(pg != null) currentPage = Integer.parseInt(pg);	
+		
+		return currentPage;
+	}
+	
+	// Limit 시작번호
+	public int getStartNum(int currentPage, int pageCount) {
+		return (currentPage - 1) * pageCount;
 	}
 	
 	

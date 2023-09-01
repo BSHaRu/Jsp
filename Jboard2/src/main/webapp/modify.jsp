@@ -28,7 +28,7 @@
             </table>
             
             <div>
-                <a href="./view.do" class="btn btnCancel">취소</a>
+                <a href="./view.do?no=${article.no }" class="btn btnCancel">취소</a>
                 <input type="submit" class="btn btnComplete" value="작성완료" />
             </div>
         </form>

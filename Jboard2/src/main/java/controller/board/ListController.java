@@ -33,13 +33,49 @@ public class ListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserDTO sessUser = (UserDTO) session.getAttribute("sessUser");
 
-		int start = 1;
+		//데이터 수신 
+		String pg = request.getParameter("pg");
+		String search = request.getParameter("search");
+		
+		// 현재 페이지 번호
+		int currentPage = service.getCurrentPage(pg);
+		
+		// 시작 인덱스
 		int pageCount = 5;
+		int start = service.getStartNum(currentPage, pageCount);
+		
+		// 전체 게시물 갯수 
+		int total = service.selectCountTotal(search);
+		
+		// 마지막 페이지 번호
+		int lastPageNum = service.getLastPageNum(total, pageCount);
+		
+		// 페이지 그룹 start, end 번호
+		int[] result 
+			= service.getPageGroupNum(currentPage, lastPageNum, pageCount);
+		
+		// 페이지 시작번호
+		int pageStartNum = service.getPageStartNum(total, currentPage, pageCount);
+		
 		if(sessUser != null) {
 			
-			List<ArticleDTO> list = service.selectArticles(start, pageCount);
+			List<ArticleDTO> list = service.selectArticles(start, pageCount, search);
 			logger.info("ListController list : " + list);
+			
 			request.setAttribute("article", list);
+			request.setAttribute("search", search);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("lastPageNum", lastPageNum);
+			request.setAttribute("pageGroupStart", result[0]);
+			request.setAttribute("pageGroupEnd", result[1]);
+			request.setAttribute("pageStartNum", pageStartNum+1);
+			
+			logger.info("ListController search : " + search);
+			logger.info("ListController currentPage : " + currentPage);
+			logger.info("ListController lastPageNum : " + lastPageNum);
+			logger.info("ListController pageGroupStart : " + result[0]);
+			logger.info("ListController pageGroupEnd : " + result[1]);
+			logger.info("ListController pageStartNum : " + pageStartNum);
 			
 			RequestDispatcher rd 
 				= request.getRequestDispatcher("list.jsp");

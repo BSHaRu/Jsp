@@ -84,14 +84,37 @@ public class SQL {
 			+ " ORDER BY no DESC"
 			+ " LIMIT ?, ?";
 
+	public static final String SELECT_ARTICLES_FOR_SEARCH 
+		= "SELECT "
+			+ "	a.*,"
+			+ "	u.nick "
+			+ " FROM `Article` AS a "
+			+ " JOIN `User` AS u ON a.writer = u.uid "
+			+ " WHERE parent = 0 "
+			+ " AND title LIKE ? " // 이거 추가됨
+			+ " ORDER BY no DESC"
+			+ " LIMIT ?, ?";
+
 	public static final String SELECT_COUNT_ARTICLE 
-		= "SELECT COUNT(no) FROM `Article` "
+		= "SELECT COUNT(*) FROM `Article` "
 				+ " WHERE parent = 0";
 		// parent 0을 안달면 댓글도 갯수로 쳐서 no가 꼬임
 
+	public static final String SELECT_COUNT_ARTICLE_FOR_SEARCH 
+	= "SELECT COUNT(*) FROM `Article` "
+			+ " WHERE parent = 0 "
+			+ " AND title LIKE = ?";
 	
+	/* File 테이블과 Join해서 게시판 + 파일을 같이 조회
+	 LEFT JOIN을 해줘야 파일이 없어도 게시글이 조회가 됨
+	 -> 그냥 JOIN하면 파일이 없을 경우
+	 검색 결과가 아에 안나옴
+	 */
 	public static final String SELECT_ARTICEL 
-		= "SELECT * FROM `Article` WHERE no = ?";
+		= "SELECT * FROM `Article` AS a "
+				+ " LEFT JOIN `File` AS f "
+				+ " ON a.`no` = f.`ano`"
+				+ " WHERE a.`no` = ?";
 
 	public static final String SELECT_CONTENTS 
 		= "SELECT "
@@ -160,7 +183,7 @@ public class SQL {
 				+ " WHERE uid = ? ";
 
 	
-	
+	// 파일 등록
 	public static final String INSERT_FILE 
 		= "INSERT INTO `File` SET "
 				+ " `ano` = ?, "
@@ -171,6 +194,15 @@ public class SQL {
 	// 파일 다운로드
 	public static final String SEECT_FILES 
 		= "SELECT * FROM `File`";
+
+	// 파일 조회
+	public static final String SELECT_FILE 
+		= "SELECT * FROM `File` "
+				+ " WHERE fno = ? ";
+
+	public static final String DELETE_FILE 
+		= "DELETE FROM `File` "
+				+ "WHERE ano = ? ";
 
 
 

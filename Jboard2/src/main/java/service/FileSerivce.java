@@ -27,8 +27,8 @@ public enum FileSerivce{
 		dao.updateFile(dto);
 	}
 	
-	public void deleteFile(int fno) {
-		dao.deleteFile(fno);
+	public int deleteFile(int ano) {
+		return dao.deleteFile(ano);
 	}
 	
 }
