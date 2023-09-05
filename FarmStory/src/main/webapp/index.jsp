@@ -34,7 +34,7 @@
             <img src="./images/main_latest1_img.jpg" alt="이미지"/>
             <table>
                 <tr>
-                    <td>&lg;</td>
+                    <td>&gt;</td>
                     <td>
                     	<a href="#">토마토! 건강하게 길러서 안심하고 먹자</a>
                    	</td>
@@ -49,7 +49,7 @@
             <img src="./images/main_latest2_img.jpg" alt="이미지"/>
             <table>
                 <tr>
-                    <td>&lg;</td>
+                    <td>&gt;</td>
                     <td>
                     	<a href="#">토마토! 건강하게 길러서 안심하고 먹자</a>
                     </td>
@@ -63,26 +63,6 @@
             </a>
             <img src="./images/main_latest3_img.jpg" alt="이미지"/>
             <table>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
-                <tr>
-                    <td>></td>
-                    <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                    <td>20-12-22</td>
-                </tr>
                 <tr>
                     <td>></td>
                     <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>

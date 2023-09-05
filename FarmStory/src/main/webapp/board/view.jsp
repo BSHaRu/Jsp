@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/inc/header.jsp"%>	
 <section class="view">
 	<h3>글보기</h3>
 	<table>
@@ -52,6 +53,7 @@
 		<!-- for end -->
 
 		<p class="empty">등록된 댓글이 없습니다.</p>
+		
 	</section>
 	<!-- commentList end -->
 
@@ -75,9 +77,6 @@
 </section>
 <!-- view end -->
 
-		</article>
-	</section>
-</div>
 <%@ include file="/inc/footer.jsp"%>
 <script>
 	$(function() {

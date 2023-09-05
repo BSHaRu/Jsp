@@ -23,19 +23,19 @@
             <p>
                 <a href="${path }/index.jsp">HOME |</a>
                 <c:choose>
-                	<c:when test="${sessUser == null }">
-		                <a href="${path }/user/login.do">로그인 |</a>
-		                <a href="${path }/user/register.do">회원가입 |</a>
-                	</c:when>
-                	<c:when test="${user.role eq 'ADMIN' }">
-                		<a href="${path }/admin/index.jsp">관리자 |</a>
+                	<c:when test="${sessUser != null }">
+                		<span>${sessUser.nick } 님 반갑습니다. |</span>
+	                	<c:if test="${sessUser.role eq 'ADMIN' }">
+	                		<a href="${path }/admin/index.jsp">관리자 |</a>
+	                	</c:if>
+	               		<a href="${path }/user/logout.do">[로그아웃] |</a>
                 	</c:when>
                 	<c:otherwise>
-                		<span>${sessUser.nick } 님 반갑습니다.</span>
-	               		<a href="${path }/user/login.do">[로그아웃]</a>
+		                <a href="${path }/user/login.do">로그인 |</a>
+		                <a href="${path }/user/register.do">회원가입 |</a>
                 	</c:otherwise>
-                <a href="#">고객센터</a>
                 </c:choose>
+                <a href="#">고객센터</a>
             </p>
             <img src="${path }/images/head_txt_img.png" alt="3만원 이상 무료배송"/>
             
@@ -52,10 +52,10 @@
                 	<a href="${path }/board/list.do?group=croptalk&cate=story">농작물이야기</a>
                	</li>
                 <li>
-               		<a href="${path }/event/event.do">이벤트</a>
+               		<a href="${path }/board/list.do?group=event&cate=event">이벤트</a>
                	</li>
                 <li>
-               	 	<a href="${path }/community/notice.do">커뮤니티</a>
+               	 	<a href="${path }/board/list.do?group=community&cate=notice">커뮤니티</a>
              	</li>
             </ul>
         </header>

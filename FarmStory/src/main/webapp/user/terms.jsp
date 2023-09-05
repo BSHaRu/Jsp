@@ -7,7 +7,7 @@
 		margin: 20px auto;
 	}
 </style>
-
+<!-- https://www.privacy.go.kr 여기서 약관 가져 오면 됨 -->
 <div id="user">
 	<section class="terms">
 		<table border="1">

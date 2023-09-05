@@ -28,6 +28,11 @@
 						<input type="password" name="pass" placeholder="비밀번호 입력" />
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="checkbox" name="auto_login" value="auto_login" />자동 로그인
+					</td>
+				</tr>
 			</table>
 			<input type="submit" value="로그인" class="btnLogin" />
 		</form>

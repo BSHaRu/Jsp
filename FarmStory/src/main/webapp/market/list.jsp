@@ -93,9 +93,9 @@
             </table>
 
             <p class="paging">
-                <a href="#">&lg;</a>
+                <a href="#">&lt;</a>
                 <a href="#" class="on">[1]</a>
-                <a href="#">&rg;</a>
+                <a href="#">&gt;</a>
             </p>
 
             <!-- 내용 끝 -->

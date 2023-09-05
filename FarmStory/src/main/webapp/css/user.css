@@ -35,6 +35,14 @@
     background-color: #fafafa;
 }
 
+/* 추가 */
+.login table input[name=auto_login] {
+	width: 30px;
+	height: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
 .login .btnLogin {
     position: absolute;
     right: 40px;

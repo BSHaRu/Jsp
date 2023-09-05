@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,7 @@ public class LoginController extends HttpServlet {
 		
 		String uid = request.getParameter("uid");
 		String pass = request.getParameter("pass");
+		String auto_login = request.getParameter("auto_login");
 		
 		UserDTO dto = service.selectUser(uid, pass);
 		logger.info("Login dto : " + dto);
@@ -48,8 +50,13 @@ public class LoginController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		if(dto != null) {
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("sessUser", dto);
+			
+			if(auto_login != null) {
+				Cookie cookie = new Cookie("auto_Cookie", auto_login);
+				cookie.setMaxAge(60);
+				response.addCookie(cookie);
+			}
 			
 			response.sendRedirect("/FarmStory/index.jsp");
 		}else {
