@@ -1,9 +1,7 @@
 package dto;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.UUID;
 
 public class ProductDTO {
 
@@ -20,15 +18,6 @@ public class ProductDTO {
 	private String seller;
 	private String etc;
 	private Date regDate;
-	
-	// 파일 업로드 땜에 추가함
-	private String path;
-	
-	public ProductDTO() {}
-	
-	public ProductDTO(String path) {
-		this.path = path;
-	}
 	
 	public int getpNo() {
 		return pNo;
@@ -84,27 +73,17 @@ public class ProductDTO {
 	public void setThumb1(String thumb1) {
 		this.thumb1 = thumb1;
 	}
-	public void setThumb1ForReName(String thumb1) {
-		// uuid로 바꿔준 이름으로 저장해줌
-		this.thumb1 = fileRename(thumb1);
-	}
 	public String getThumb2() {
 		return thumb2;
 	}
 	public void setThumb2(String thumb2) {
 		this.thumb2 = thumb2;
 	}
-	public void setThumb2ForReName(String thumb2) {
-		this.thumb2 = fileRename(thumb2);
-	}
 	public String getThumb3() {
 		return thumb3;
 	}
 	public void setThumb3(String thumb3) {
 		this.thumb3 = thumb3;
-	}
-	public void setThumb3ForReName(String thumb3) {
-		this.thumb3 = fileRename(thumb3);
 	}
 	public String getSeller() {
 		return seller;
@@ -125,26 +104,11 @@ public class ProductDTO {
 		this.regDate = regDate;
 	}
 	
-	// 파일 업로드 추가
-	public String fileRename(String thumb) {
-		int i = thumb.lastIndexOf(".");
-		String ext = thumb.substring(i);
-		
-		String uuid = UUID.randomUUID().toString();
-		String sName = uuid + ext;
-		
-		File f1 = new File(path + "/" + thumb); 
-		File f2 = new File(path + "/" + sName);
-		f1.renameTo(f2);
-		
-		return sName;
-	}
-
 	@Override
 	public String toString() {
 		return "ProductDTO [pNo=" + pNo + ", type=" + type + ", pName=" + pName + ", price=" + price + ", delivery="
 				+ delivery + ", stock=" + stock + ", sold=" + sold + ", thumb1=" + thumb1 + ", thumb2=" + thumb2
-				+ ", thumb3=" + thumb3 + ", seller=" + seller + ", etc=" + etc + ", regDate=" + regDate + ", path="
-				+ path + "]";
+				+ ", thumb3=" + thumb3 + ", seller=" + seller + ", etc=" + etc + ", regDate=" + regDate + "]";
 	}
+
 }

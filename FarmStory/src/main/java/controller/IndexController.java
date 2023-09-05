@@ -23,18 +23,26 @@ public class IndexController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		/* 일단 보류
-		 * Cookie[] cookies = request.getCookies();
-		 * 
-		 * // cookie 존재 & 회원 가입 된 id 존재 & 로그인 정보 x // -> 자동 로그인 처리 해줌 if(cookies != null
-		 * && dto.UserDTO.getUid() == null && sessUser.getUid() != null) { for(int i =
-		 * 0; i < cookies.length; i++) { logger.info(cookies[i].getName() + " : " +
-		 * cookies[i].getValue());
-		 * 
-		 * // 자동 로그인 체크를 했고, 가입 된 id가 일치하면 자동 로그인 처리
-		 * if(cookies[i].getName().equals("auto_login") &&
-		 * cookies[i].getValue().equals(sessUser.getUid())) { //session 정보에 자동로그인 정보 추가
-		 * session.setAttribute("sessUser", dto); sessUser = dto; } } }
-		 */
+		Cookie[] cookies = request.getCookies();
+		 
+		// cookie 존재 & 회원 가입 된 id 존재 & 로그인 정보 x 
+		// -> 자동 로그인 처리 해줌 
+		if(cookies != null 
+			&& dto.UserDTO.getUid() == null 
+			&& sessUser.getUid() != null) { 
+				
+			for(int i = 0; i < cookies.length; i++) { 
+			 	logger.info(cookies[i].getName() + " : " + cookies[i].getValue());
+			 
+				 // 자동 로그인 체크를 했고, 가입 된 id가 일치하면 자동 로그인 처리
+				 if(cookies[i].getName().equals("auto_login") 
+						 && cookies[i].getValue().equals(sessUser.getUid())) { 
+				 	//session 정보에 자동로그인 정보 추가
+				 	session.setAttribute("sessUser", dto); sessUser = dto; 
+ 				} 
+	 		} // 
+	 	} // cookies not null
+		*/ 
 		
 		RequestDispatcher rd 
 			= request.getRequestDispatcher("/index.jsp");

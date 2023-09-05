@@ -42,18 +42,24 @@
 			
 				<!-- 페이지 네비게이션 -->
 				<div class="paging">
-					<a href="list.do?group=&cate=&pg=1" 
+				<c:if test="${pageGroupStart > 1}">
+					<a href="list.do?group=${group }&cate=${cate }&pg=1" 
 						class="prev">&laquo;</a> 
-					<a href="list.do?group=&cate=&pg=" 
-						class="prev">이전</a> 
+					<a href="list.do?group=${group }&cate=${cate }&pg=${pageGroupStart -1 }" 
+						class="prev">이전</a>
+				</c:if> 
 				
-					<a href="list.do?group=&cate=&pg="
-						class="num ">1</a> 
+				<c:forEach var="i" begin="${pageGroupStart}" end="${pageGroupEnd}">
+					<a href="list.do?group=${group }&cate=${cate }&pg=${i}"
+						class="num ${currentPage == i? 'current' : 'off'}">${i }</a>
+				</c:forEach> 
 				
-					<a href="list.do?group=&cate=&pg=" 
+				<c:if test="${pageGroupEnd < lastPageNum}">
+					<a href="list.do?group=${group }&cate=${cate }&pg=${pageGroupEnd +1 }" 
 						class="next">다음</a> 
-					<a href="list.do?group=&cate=>&pg=" 
+					<a href="list.do?group=${group }&cate=${cate }&pg=${lastPageNum }" 
 						class="next">&raquo;</a>
+				</c:if>
 				</div>
 			
 				<!-- 글쓰기 버튼 -->

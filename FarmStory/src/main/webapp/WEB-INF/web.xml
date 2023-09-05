@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>FarmStory</display-name>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  
-  <!-- MVC 보안설정 -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>FarmStory</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- MVC 보안설정 -->
 	<security-constraint>
 		<display-name>Prohibit Model1</display-name>
 		<web-resource-collection>
 			<web-resource-name>secure page</web-resource-name>
-			<!-- .jsp는 브라우저 안 보이게 접근 제한 걸어둠 
-				-> 무조건 index를 제외하고 페이지 이동은 controller를 통해 이용
-			-->
+			<!-- .jsp는 브라우저 안 보이게 접근 제한 걸어둠 -> 무조건 index를 제외하고 페이지 이동은 controller를 
+				통해 이용 -->
 			<url-pattern>*.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>nobody</role-name>
 		</auth-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>free page</web-resource-name>
@@ -27,8 +29,30 @@
 			<url-pattern>/index.jsp</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
-  
-  	<!-- 인코딩 필터 등록 -->
+
+	<!-- 로그인 여부 체크 필터 등록 -->
+	<filter>
+		<filter-name>CheckLoginFilter</filter-name>
+		<filter-class>filter.CheckLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CheckLoginFilter</filter-name>
+		<url-pattern>/board/write.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckLoginFilter</filter-name>
+		<url-pattern>/board/view.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckLoginFilter</filter-name>
+		<url-pattern>/board/modify.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckLoginFilter</filter-name>
+		<url-pattern>/board/delete.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 인코딩 필터 등록 -->
 	<filter>
 		<!-- tomcat 안에 있는 기본 인코딩 필터 -->
 		<filter-name>SetCharacterEncodingFilter</filter-name>

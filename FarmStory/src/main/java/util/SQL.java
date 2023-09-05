@@ -38,6 +38,7 @@ public class SQL {
 				+ " cate = ?, "
 				+ " title = ?, "
 				+ " content = ?, "
+				+ " file = ?, "
 				+ " writer = ?, "
 				+ " regIp = ?, "
 				+ " regDate = NOW()";
@@ -74,8 +75,10 @@ public class SQL {
 
 	// 현재 게시글 보기
 	public static final String SELECT_ARTICLE 
-		= "SELECT * FROM `Article` "
-				+ " WHERE no = ?";
+		= "SELECT * FROM `Article` AS a "
+			+ " LEFT JOIN `File` AS f "
+			+ " ON no = ano"
+			+ " WHERE no = ?";
 
 	// 댓글 보기
 	public static final String SELECT_CONTENTS 
@@ -185,6 +188,27 @@ public class SQL {
 		= "DELETE FROM `Order` WHERE orderNo = ?";
 
 
+	public static final String SELECT_MAX_NO 
+		= "SELECT MAX(`no`) FROM `Article`";
+
+
+	public static final String INSERT_FILE 
+		= "INSERT INTO `File` SET "
+			+ " `ano` = ?, "
+			+ " `oriName` = ?, "
+			+ " `newName` = ?, "
+			+ " `regDate` = NOW()";
+
+
+	// 파일 조회
+	public static final String SELECT_FILE 
+		= "SELECT * FROM `File` "
+				+ " WHERE fno = ? ";
+
+	// 파일 다운로드
+	public static final String FILE_DOWNLOAD 
+		= "SELECT * FROM `File` ";
+	
 	
 	
 }

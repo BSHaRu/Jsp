@@ -25,12 +25,24 @@ public class ArticleDTO {
 		this.nick = nick;
 	}
 	
+	// 파일 join 추가
+	private FileDTO fileDto;
+	public FileDTO getFileDto() {
+		return fileDto;
+	}
+	public void setFileDto(FileDTO fileDto) {
+		this.fileDto = fileDto;
+	}
+
 	
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public void setNo(String no) {
+		this.no = Integer.parseInt(no);
 	}
 	public int getParent() {
 		return parent;
@@ -93,12 +105,12 @@ public class ArticleDTO {
 		this.regDate = regDate;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "ArticleDTO [no=" + no + ", parent=" + parent + ", comment=" + comment + ", cate=" + cate + ", title="
 				+ title + ", content=" + content + ", file=" + file + ", hit=" + hit + ", writer=" + writer + ", regIp="
-				+ regIp + ", regDate=" + regDate + ", nick=" + nick + "]";
+				+ regIp + ", regDate=" + regDate + ", nick=" + nick + ", fileDto=" + fileDto + "]";
 	}
+	
 }
 	
