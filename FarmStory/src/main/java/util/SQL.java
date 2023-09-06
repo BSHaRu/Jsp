@@ -208,6 +208,12 @@ public class SQL {
 	// 파일 다운로드
 	public static final String FILE_DOWNLOAD 
 		= "SELECT * FROM `File` ";
+
+
+	// id로 쿠키 조회
+	public static final String SELECT_COOKIE 
+		= "SELECT * FROM User "
+				+ "	WHERE uid = ?";
 	
 	
 	

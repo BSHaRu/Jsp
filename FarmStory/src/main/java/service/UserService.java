@@ -26,5 +26,8 @@ public enum UserService {
 	public void deleteUser(String uid) {
 		dao.deleteUser(uid);
 	}
+	public UserDTO selectCookie(String uid) {
+		return dao.selectCookie(uid);
+	}
 	
 }

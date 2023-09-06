@@ -53,12 +53,13 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("sessUser", dto);
 			
 			if(auto_login != null) {
-				Cookie cookie = new Cookie("auto_Cookie", auto_login);
-				cookie.setMaxAge(60);
+				Cookie cookie = new Cookie("userCookie", dto.getUid());
+				cookie.setMaxAge(60*60*24*7);
+				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
 			
-			response.sendRedirect("/FarmStory/index.jsp");
+			response.sendRedirect("/FarmStory/index.do");
 		}else {
 			PrintWriter pw = response.getWriter();
 			pw.print("<script>");

@@ -30,9 +30,12 @@ public class ListController extends HttpServlet {
 		String group = request.getParameter("group");
 		String cate = request.getParameter("cate");
 		String pg = request.getParameter("pg");
-		logger.debug("ListController group : " + group);
-		logger.debug("ListController cate : " + cate);
-		logger.debug("ListController pg : " + pg);
+		
+		/*
+		 * logger.debug("ListController group : " + group);
+		 * logger.debug("ListController cate : " + cate);
+		 * logger.debug("ListController pg : " + pg);
+		 */
 
 		request.setAttribute("group", group);
 		request.setAttribute("cate", cate);

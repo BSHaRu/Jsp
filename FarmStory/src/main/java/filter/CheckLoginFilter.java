@@ -26,14 +26,23 @@ public class CheckLoginFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, 
 			ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpSession session = httpRequest.getSession();
+		/* 
+		 * HttpServletRequest httpRequest = (HttpServletRequest) request; 
+		 * HttpSession session = httpRequest.getSession();
+		 */
+		
+		// 위에 2줄을 한줄로 정의
+		HttpSession session 
+			= ((HttpServletRequest)request).getSession(); 
 		
 		UserDTO sessUser 
 			= (UserDTO) session.getAttribute("sessUser");
 		
 		if(sessUser != null) {
 			logger.debug("filter sessUser not null");
+			
+			// 클라이언트가 원래 실행하려고 한 페이지로 이동
+			// -> 해당 필터가 실행 된 뒤 페이지 이동됨
 			chain.doFilter(request, response);
 		}else {
 			// 다음 필터 호출, 필터 없으면 최종 자원 요청
@@ -46,6 +55,9 @@ public class CheckLoginFilter extends HttpFilter implements Filter {
 			pw.print("location.href='/FarmStory/user/login.do?=300';");
 			pw.print("</script>");
 			pw.close();
+			
+			// 이건 리다이랙트로 이동시키는 방법
+			// ((HttpServletResponse)response).sendRedirect("/FarmStory/user/login.do?=300");
 		}
 	}
 }

@@ -17,11 +17,11 @@
 <body>
     <div id="container">
         <header>
-            <a href="${path }/index.jsp" class="logo">
+            <a href="${path }/index.do" class="logo">
             	<img src="${path }/images/logo.png" alt="로고"/>
             </a>
             <p>
-                <a href="${path }/index.jsp">HOME |</a>
+                <a href="${path }/index.do">HOME |</a>
                 <c:choose>
                 	<c:when test="${sessUser != null }">
                 		<span>${sessUser.nick } 님 반갑습니다. |</span>

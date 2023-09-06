@@ -74,6 +74,28 @@ public class UserDAO extends DBCP{
 		return list;
 	}
 	
+	// id로 쿠키 조회
+	public UserDTO selectCookie(String uid) {
+		UserDTO dto = null;
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.SELECT_COOKIE);
+			psmt.setString(1, uid);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new UserDTO();
+				dto = getUser(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, psmt, conn);
+		}
+		
+		return dto;
+	}
+	
 	public void updateUser(UserDTO dto) {
 		
 	}
@@ -102,4 +124,5 @@ public class UserDAO extends DBCP{
 		}catch(Exception e) {}
 		return dto;
 	}
+	
 }
