@@ -51,10 +51,10 @@ public enum ArticleService {
 		return dao.selectContents(no);
 	}
 	public void updateArticle(ArticleDTO dto) {
-		
+		dao.updateArticle(dto);
 	}
 	public void deleteArticle(int no) {
-		
+		dao.deleteArticle(no);
 	}
 	
 	// 파일 업로드 경로

@@ -30,8 +30,8 @@
 	<!-- 게시판 삭제++ -->
 	<div>
 		<c:if test="${sessUser.uid eq article.writer }">
-			<a href="#" class="btnDelete">삭제</a> 
-			<a href="${path }/board/modify.do?group=&cate=&no=" class="btnModify">수정</a> 
+			<a href="${path }/board/delete.do?group=${group }&cate=${cate }&no=${article.no}" class="btnDelete">삭제</a> 
+			<a href="${path }/board/modify.do?group=${group }&cate=${cate }&no=${article.no}" class="btnModify">수정</a> 
 		</c:if>
 		<a href="${path }/board/list.do?group=${group }&cate=${cate }" class="btnList">목록</a>
 	</div>

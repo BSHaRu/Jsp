@@ -29,6 +29,10 @@ public class SQL {
 				+ " WHERE uid =? "
 				+ " AND pass = SHA2(?,256)";
 
+	// id로 쿠키 조회
+	public static final String SELECT_COOKIE 
+		= "SELECT * FROM User "
+				+ "	WHERE uid = ?";
 	
 	
 	// artitcle
@@ -42,6 +46,11 @@ public class SQL {
 				+ " writer = ?, "
 				+ " regIp = ?, "
 				+ " regDate = NOW()";
+	
+	// 이걸 하는 이유가 게시판 글 쓰자마자 바로 업로드 되는 게시글 조회하려고
+	// -> 파일 업로드 할 때 글 쓰자마자 해당 게시글 번호를 가져 올 수 있음
+	public static final String SELECT_MAX_NO 
+		= "SELECT MAX(`no`) FROM `Article`";
 
 	// 댓글 쓰기
 	public static final String INSERT_CONTENT 
@@ -188,10 +197,9 @@ public class SQL {
 		= "DELETE FROM `Order` WHERE orderNo = ?";
 
 
-	public static final String SELECT_MAX_NO 
-		= "SELECT MAX(`no`) FROM `Article`";
-
-
+	
+	// file
+	// 파일 업로드
 	public static final String INSERT_FILE 
 		= "INSERT INTO `File` SET "
 			+ " `ano` = ?, "
@@ -210,10 +218,7 @@ public class SQL {
 		= "SELECT * FROM `File` ";
 
 
-	// id로 쿠키 조회
-	public static final String SELECT_COOKIE 
-		= "SELECT * FROM User "
-				+ "	WHERE uid = ?";
+	
 	
 	
 	

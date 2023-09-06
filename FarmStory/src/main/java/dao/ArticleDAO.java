@@ -124,7 +124,18 @@ public class ArticleDAO extends DBCP{
 	}
 	
 	public void updateArticle(ArticleDTO dto) {
-		
+		conn = getConnection();
+		try {
+			psmt = conn.prepareStatement(SQL.UPDATE_Article);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setInt(3, dto.getNo());
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("updateArticle : " + e.getMessage());
+		}finally {
+			close(psmt, conn);
+		}
 	}
 	public void deleteArticle(int no) {
 		

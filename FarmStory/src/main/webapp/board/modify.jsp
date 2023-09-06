@@ -5,21 +5,21 @@
 <section class="modify">
     <h3>글수정</h3>
     <article>
-        <form action="/FarmStory1/board/proc/modifyProc.jsp" method="post">
-        	<input type="hidden" name="no" value="" />
-        	<input type="hidden" name="cate" value="" />
-        	<input type="hidden" name="group" value="" />
+        <form action="${path }/board/modify.do" method="post">
+        	<input type="hidden" name="no" value="${article.no }" />
+        	<input type="hidden" name="cate" value="${article.cate }" />
+        	<input type="hidden" name="group" value="${group }" />
             <table>
                 <tr>
                     <td>제목</td>
                     <td>
-                        <input type="text" name="title" value="" />
+                        <input type="text" name="title" value="${article.title }" />
                     </td>
                 </tr>
                 <tr>
                     <td>내용</td>
                     <td>
-                        <textarea class="textarea" name="content"></textarea>                                
+                        <textarea class="textarea" name="content">${article.content }</textarea>                                
                     </td>
                 </tr>
                 <tr>

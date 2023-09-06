@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import dto.ArticleDTO;
 import service.ArticleService;
 
-@WebServlet("/board/modify.do")
-public class ModifyController extends HttpServlet {
-	private static final long serialVersionUID = 3233004322957533062L;
+@WebServlet("/board/delete.do")
+public class DeleteController extends HttpServlet {
+	private static final long serialVersionUID = 6233004322957533062L;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ArticleService service = ArticleService.INSTANCE;
