@@ -14,7 +14,7 @@ import util.SQL;
 
 public class FileDAO extends DBCP{
 
-	public static FileDAO instance = new FileDAO();
+	private static FileDAO instance = new FileDAO();
 	public static FileDAO getInstance() {
 		return instance;
 	}

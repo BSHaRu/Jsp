@@ -35,7 +35,7 @@ public class DeleteController extends HttpServlet {
 		request.setAttribute("group", group);
 		
 		RequestDispatcher rd 
-			= request.getRequestDispatcher("/board/modify.jsp");
+			= request.getRequestDispatcher("/board/delete.jsp");
 		rd.forward(request, response);
 	}
 	

@@ -44,18 +44,14 @@
 				<c:forEach var="content" items="${contents }">
 					<article class="comment">
 						<form action="#" method="post">
-							<input type="hidden" name="no" value="" /> 
-							<input type="hidden" name="parent" value="" /> 
-							<span> 
-								<span style="font-weight: bold;"></span> 
-								<span style="font-weight: lighter;"></span>
-							</span>
+							<span style="font-weight: bold;" class="nick">${content.nick }</span> 
+							<span style="font-weight: lighter;" class="date">${content.regDate }</span>
 							<textarea class="textarea" name="comment" readonly></textarea>
 							<c:if test="${sessUser.uid eq article.writer }">
 								<div>
-									<a href="#" class="del">삭제</a> 
-									<a href="#" class="cancel">취소</a> 
-									<a href="#" class="modify">수정</a>
+									<a href="#" class="del" data-no="${comment.no}">삭제</a> 
+									<a href="#" class="cancel" data-no="${comment.no}">취소</a> 
+									<a href="#" class="modify" data-no="${comment.no}">수정</a>
 								</div>
 							</c:if>
 						</form>
@@ -73,12 +69,12 @@
 	<!-- 댓글입력폼 -->
 	<section class="commentForm">
 		<h3>댓글쓰기</h3>
-		<form action="${path }/board/write.do" method="post">
-			<input type="hidden" name="parent" value="" /> 
-			<input type="hidden" name="writer" value="" /> 
-			<input type="hidden" name="cate" value="" />
-			<input type="hidden" name="group" value="" />
-			<textarea class="textarea" name="content"></textarea>
+		<form id="formComment" action="#" method="post">
+			<input id="articleParent" type="hidden" name="parent" value="${article.no }" /> 
+			<input id="articleWriter" type="hidden" name="writer" value="${sessUser.uid }" /> 
+			<input id="articleCate" type="hidden" name="cate" value="${cate }" />
+			<input id="articleGroup" type="hidden" name="group" value="${group }" />
+			<textarea id="commentContent" class="textarea" name="content"></textarea>
 			<div>
 				<input type="reset" class="btnReset" value="취소" /> 
 				<input type="submit" class="btnWrite" value="작성완료" />
@@ -91,6 +87,7 @@
 <!-- view end -->
 
 <%@ include file="/inc/footer.jsp"%>
+<script src="/FarmStory/js/comment.js"></script>
 <script>
 	$(function() {
 		$(".cancel").click(function(e) {

@@ -52,16 +52,6 @@ public class SQL {
 	public static final String SELECT_MAX_NO 
 		= "SELECT MAX(`no`) FROM `Article`";
 
-	// 댓글 쓰기
-	public static final String INSERT_CONTENT 
-		= "INSERT INTO Article SET "
-				+ " cate = ?, "
-				+ " parent = ?, "
-				+ " content = ?, "
-				+ " writer = ?, "
-				+ " regIp = ?, "
-				+ " regDate = NOW()";
-	
 	
 	// PageMaker - 현재 페이지 게시물 조회
 	public static final String SELECT_PM 
@@ -89,6 +79,25 @@ public class SQL {
 			+ " ON no = ano"
 			+ " WHERE no = ?";
 
+	// 댓글 쓰기
+	public static final String INSERT_CONTENT 
+		= "INSERT INTO Article SET "
+				+ " parent = ?, "
+				+ " content = ?, "
+				+ " writer = ?, "
+				+ " regIp = ?, "
+				+ " regDate = NOW()";
+	
+	// 댓글 쓰고 바로 보기(그 파일업로드랑 비슷한 구조)
+	public static final String SELECT_CONTENT_LATEST 
+		= "SELECT "
+			+ " a.*, "
+			+ " b.`nick` "
+			+ " FROM `Article` AS a "
+			+ " JOIN `User` AS b ON a.writer = b.uid "
+			+ " WHERE `parent`!=0 "
+			+ " ORDER BY `no` DESC LIMIT 1";
+	
 	// 댓글 보기
 	public static final String SELECT_CONTENTS 
 		= "SELECT a.*, u.nick "

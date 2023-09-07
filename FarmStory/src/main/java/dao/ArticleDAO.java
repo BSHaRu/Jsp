@@ -15,7 +15,7 @@ import util.SQL;
 
 public class ArticleDAO extends DBCP{
 
-	public static ArticleDAO instance = new ArticleDAO();
+	private static ArticleDAO instance = new ArticleDAO();
 	public static ArticleDAO getInstance() {
 		return instance;
 	}
@@ -181,7 +181,38 @@ public class ArticleDAO extends DBCP{
 		}
 		return list;
 	}
-	
+
+	// 댓글 쓰기 -> 쓰자마자 바로 조회해서 해당 댓글 볼 수 있는 로직
+	// => 내나 그 파일업로드랑 비슷한 구조
+	public ArticleDTO insertContent(ArticleDTO dto) {
+		conn = getConnection();
+		try {
+			conn.setAutoCommit(false);
+			stmt = conn.createStatement();
+			
+			psmt = conn.prepareStatement(SQL.INSERT_CONTENT);
+			psmt.setInt(1, dto.getParent());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getWriter());
+			psmt.setString(4, dto.getRegIp());
+			psmt.executeUpdate();
+			
+			conn.commit();
+			rs = stmt.executeQuery(SQL.SELECT_CONTENT_LATEST);
+			if(rs.next()) {
+				dto = new ArticleDTO();
+				dto = getArticle(rs);
+				dto.setNick(rs.getString("nick"));
+			}
+			logger.debug("insertContent dto :  "+dto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, psmt, conn);
+		}
+		return dto;
+	}
+
 	
 	
 	public ArticleDTO getArticle(ResultSet rs) {

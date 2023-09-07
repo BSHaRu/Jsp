@@ -47,15 +47,22 @@ public enum ArticleService {
 		return dao.selectCountTotal(cate);
 	}
 	
-	public List<ArticleDTO> selectContents(int no){
-		return dao.selectContents(no);
-	}
 	public void updateArticle(ArticleDTO dto) {
 		dao.updateArticle(dto);
 	}
 	public void deleteArticle(int no) {
 		dao.deleteArticle(no);
 	}
+	
+	// 댓글 쓰기
+	public ArticleDTO insertContent(ArticleDTO dto) {
+		return dao.insertContent(dto);
+	}
+	// 댓글 목록
+	public List<ArticleDTO> selectContents(int no){
+		return dao.selectContents(no);
+	}
+	
 	
 	// 파일 업로드 경로
 	public String getFilePath(HttpServletRequest request) {
@@ -190,5 +197,5 @@ public enum ArticleService {
 	public int getStartNum(int currentPage, int pageCount) {
 		return (currentPage - 1) * pageCount;
 	}
-	
+
 }

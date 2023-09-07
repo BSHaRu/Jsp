@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dto.ArticleDTO;
 import service.ArticleService;
 
@@ -20,7 +17,7 @@ import service.ArticleService;
 public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1233004322957533062L;
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	//private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private ArticleService service = ArticleService.INSTANCE;
 	
 	@Override
@@ -76,12 +73,5 @@ public class ListController extends HttpServlet {
 		RequestDispatcher rd 
 			= request.getRequestDispatcher("/board/list.jsp");
 		rd.forward(request, response);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		
-		super.doPost(request, response);
 	}
 }
